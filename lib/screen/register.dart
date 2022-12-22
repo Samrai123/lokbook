@@ -40,7 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _submitButton() {
+  Widget _RegisterButton() {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(vertical: 15),
@@ -155,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    _submitButton(),
+                    _RegisterButton(),
                     SizedBox(height: height * .14),
                     _loginAccountLabel(),
                   ],
