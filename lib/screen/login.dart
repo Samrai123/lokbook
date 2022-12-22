@@ -30,7 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
             ),
             Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
+                style: GoogleFonts.comicNeue(
+                    fontSize: 12, fontWeight: FontWeight.w900))
           ],
         ),
       ),
@@ -45,7 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            style: GoogleFonts.comicNeue(
+                fontWeight: FontWeight.bold, fontSize: 17),
           ),
           SizedBox(
             height: 10,
@@ -75,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 blurRadius: 5,
                 spreadRadius: 2)
           ],
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [
@@ -84,40 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ])),
       child: Text(
         'Login',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _divider() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          Text('or'),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
+        style: GoogleFonts.comicNeue(
+            fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
       ),
     );
   }
@@ -125,8 +95,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _facebookButton() {
     return Container(
       height: 50,
-      margin: EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
+      margin: const EdgeInsets.symmetric(vertical: 20),
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Row(
@@ -134,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Expanded(
             flex: 1,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xff1959a9),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(5),
@@ -142,16 +112,16 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               alignment: Alignment.center,
               child: Text('f',
-                  style: TextStyle(
+                  style: GoogleFonts.comicNeue(
                       color: Colors.white,
                       fontSize: 25,
-                      fontWeight: FontWeight.w400)),
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           Expanded(
             flex: 5,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 9, 61, 113),
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(5),
@@ -159,10 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               alignment: Alignment.center,
               child: Text('Log in with Facebook',
-                  style: TextStyle(
+                  style: GoogleFonts.comicNeue(
                       color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400)),
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -185,16 +155,17 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             Text(
               'Don\'t have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              style: GoogleFonts.comicNeue(
+                  fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               width: 10,
             ),
             Text(
               'Register',
-              style: TextStyle(
+              style: GoogleFonts.comicNeue(
                   color: Color(0xfff79c4f),
-                  fontSize: 13,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600),
             ),
           ],
@@ -255,11 +226,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: InkWell(
                       onTap: () {},
                       child: Text('Forgot Password ?',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500)),
+                          style: GoogleFonts.comicNeue(
+                              fontSize: 16, fontWeight: FontWeight.w600)),
                     ),
                   ),
-                  _divider(),
+                  //_divider(),
                   _facebookButton(),
                   SizedBox(height: height * .055),
                   _createAccountLabel(),
