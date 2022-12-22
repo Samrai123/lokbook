@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_second_app/screen/login.dart';
 
 import 'Widget/bcontainer.dart';
 
@@ -22,14 +23,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            style: GoogleFonts.comicNeue(
+                fontWeight: FontWeight.bold, fontSize: 17),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextField(
               obscureText: isPassword,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
                   filled: true))
@@ -41,13 +43,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _submitButton() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5)),
           boxShadow: <BoxShadow>[
             BoxShadow(
-                color: Colors.grey.shade200,
+                color: Color.fromARGB(255, 70, 63, 53),
                 offset: Offset(2, 4),
                 blurRadius: 5,
                 spreadRadius: 2)
@@ -61,14 +63,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ])),
       child: Text(
         'Register Now',
-        style: TextStyle(fontSize: 20, color: Colors.white),
+        style: GoogleFonts.comicNeue(fontSize: 20, color: Colors.white),
       ),
     );
   }
 
   Widget _loginAccountLabel() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
         padding: EdgeInsets.all(15),
@@ -78,16 +83,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: <Widget>[
             Text(
               'Already have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              style: GoogleFonts.comicNeue(
+                  fontSize: 15, fontWeight: FontWeight.w600),
             ),
-            SizedBox(
-              width: 10,
+            const SizedBox(
+              width: 12,
             ),
             Text(
               'Login',
-              style: TextStyle(
+              style: GoogleFonts.comicNeue(
                   color: Color(0xfff79c4f),
-                  fontSize: 13,
+                  fontSize: 15,
                   fontWeight: FontWeight.w600),
             ),
           ],
@@ -97,25 +103,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: 'Lo',
-          style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w700,
-              color: Color.fromARGB(255, 102, 58, 25)),
-          children: [
-            TextSpan(
-              text: 'k',
-              style: TextStyle(color: Colors.black, fontSize: 30),
-            ),
-            TextSpan(
-              text: 'Book',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 102, 58, 25), fontSize: 30),
-            ),
-          ]),
+    return Container(
+      child: Text(
+        'LookBook',
+        style: GoogleFonts.comicNeue(
+            fontSize: 32,
+            fontWeight: FontWeight.w900,
+            color: Color.fromARGB(255, 63, 39, 21)),
+      ),
     );
   }
 
@@ -153,11 +148,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       height: height * .2,
                     ),
                     _title(),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     _emailPasswordWidget(),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     _submitButton(),

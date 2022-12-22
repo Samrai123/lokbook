@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:my_second_app/screen/login.dart';
 import 'package:my_second_app/screen/register.dart';
 
 void main() {
@@ -7,9 +8,10 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter for class',
-      initialRoute: '/',
+      initialRoute: '/register',
       routes: {
-        '/': (context) => RegisterScreen(),
+        '/register': (context) => RegisterScreen(),
+        '/login': (context) => LoginScreen()
       },
     ),
   );
