@@ -105,13 +105,19 @@ class _LoginScreenState extends State<LoginScreen> {
             flex: 1,
             child: Container(
               decoration: const BoxDecoration(
-                color: Color(0xff1959a9),
+                gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Color.fromARGB(255, 48, 43, 35),
+                      Color.fromARGB(255, 12, 12, 12)
+                    ]),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(5),
                     topLeft: Radius.circular(5)),
               ),
               alignment: Alignment.center,
-              child: Text('f',
+              child: Text('G',
                   style: GoogleFonts.comicNeue(
                       color: Colors.white,
                       fontSize: 25,
@@ -122,13 +128,19 @@ class _LoginScreenState extends State<LoginScreen> {
             flex: 5,
             child: Container(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 9, 61, 113),
+                gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Color.fromARGB(255, 48, 43, 35),
+                      Color.fromARGB(255, 12, 12, 12)
+                    ]),
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(5),
                     topRight: Radius.circular(5)),
               ),
               alignment: Alignment.center,
-              child: Text('Log in with Facebook',
+              child: Text('Log in with Google',
                   style: GoogleFonts.comicNeue(
                       color: Colors.white,
                       fontSize: 22,

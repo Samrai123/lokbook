@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import 'bottom_screen/login.dart';
+import 'login.dart';
+import 'register.dart';
+
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
@@ -16,18 +20,20 @@ class DashboardScreen extends StatelessWidget {
       body: Container(
         child: Row(children: [
           Card(
-            color: Color.fromARGB(255, 48, 43, 35),
+            color: Color.fromARGB(255, 184, 179, 173),
             clipBehavior: Clip.hardEdge,
             child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
               onTap: () {
-                debugPrint('Card tapped.');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
               },
               child: const SizedBox(
-                width: 150,
-                height: 150,
+                width: 75,
+                height: 75,
                 child: Text(
                   'Login',
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
@@ -37,17 +43,21 @@ class DashboardScreen extends StatelessWidget {
             width: 50,
           ),
           Card(
-            color: Color.fromARGB(255, 48, 43, 35),
+            color: Color.fromARGB(255, 184, 179, 173),
             clipBehavior: Clip.hardEdge,
             child: InkWell(
               splashColor: Colors.blue.withAlpha(30),
               onTap: () {
-                debugPrint('Card tapped.');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RegisterScreen()));
               },
-              child: const SizedBox(
-                width: 150,
-                height: 150,
-                child: Text('Register'),
+              child: Container(
+                width: 75,
+                height: 75,
+                child: Text(
+                  'Register',
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
