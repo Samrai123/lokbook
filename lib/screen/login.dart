@@ -5,6 +5,7 @@ import 'package:my_second_app/screen/bottom_screen/register.dart';
 import 'package:my_second_app/screen/register.dart';
 
 import 'Widget/bcontainer.dart';
+import 'forgetpass.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key, this.title}) : super(key: key);
@@ -236,7 +237,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.centerRight,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgetPasswordScreen()));
+                      },
                       child: Text('Forgot Password ?',
                           style: GoogleFonts.comicNeue(
                               fontSize: 16, fontWeight: FontWeight.w600)),
