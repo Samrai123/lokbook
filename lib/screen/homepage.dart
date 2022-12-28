@@ -1,48 +1,86 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-import 'login.dart';
-import 'register.dart';
-import 'searchpage.dart';
-
-class HomepageScreen extends StatefulWidget {
-  const HomepageScreen({super.key});
-
+class AppMainPage extends StatefulWidget {
   @override
-  State<HomepageScreen> createState() => _HomepageScreenState();
+  _AppMainPageState createState() => _AppMainPageState();
 }
 
-class _HomepageScreenState extends State<HomepageScreen> {
-  int _selectedIndex = 0;
-  List<Widget> lstBottomScreen = [
-    const HomepageScreen(),
-    LoginScreen(),
-    //const ProfileScreen(),
-    RegisterScreen()
+// The old _NavBarState class, just renamed.
+class _AppMainPageState extends State<AppMainPage> {
+  int _currentIndex = 0;
+  final List<Widget> _children = [
+    Container(
+      color: Colors.red,
+      child: Center(
+        child: Text('Search body layout'),
+      ),
+    ),
+
+    Container(
+      color: Colors.green,
+      child: Center(
+        child: Text('Favorites body layout'),
+      ),
+    ),
+
+    //ForgetPassword(),
+    Container(
+      color: Colors.blue,
+      child: Center(
+        child: Text('Notification body layout'),
+      ),
+    ),
+
+    //LoginScreen(),
+    Container(
+      color: Colors.amber,
+      child: Center(
+        child: Text('More body layout'),
+      ),
+    ),
   ];
+
+  void onTappedBar(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: lstBottomScreen[_selectedIndex],
+      body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        onTap: onTappedBar,
+        currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          // BottomNavigationBarItem(icon: Icon(Icons.login), label: 'Login'),
-          BottomNavigationBarItem(icon: Icon(Icons.face), label: 'Profile'),
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.app_registration), label: 'Register'),
+              icon: Icon(
+                Icons.search,
+              ),
+              label: 'Search',
+              backgroundColor: Colors.black),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite,
+              ),
+              label: 'Favorites',
+              backgroundColor: Colors.black),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.notifications,
+              ),
+              label: 'Notifications',
+              backgroundColor: Colors.black),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.more,
+              ),
+              label: 'More',
+              backgroundColor: Colors.black),
         ],
-        backgroundColor: Color.fromARGB(255, 48, 43, 35),
-        selectedItemColor: Color.fromARGB(255, 237, 237, 237),
-        unselectedItemColor: Colors.blueGrey,
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
+        selectedItemColor: Color(0xffFFDA3A),
       ),
     );
   }

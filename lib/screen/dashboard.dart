@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import 'homepage.dart';
+import 'profile_screen.dart';
 import 'login.dart';
 import 'register.dart';
 
@@ -19,25 +19,25 @@ class DashboardScreen extends StatelessWidget {
       ),
       body: Container(
         child: Row(children: [
-          // Card(
-          //   color: Color.fromARGB(255, 184, 179, 173),
-          //   clipBehavior: Clip.hardEdge,
-          //   child: InkWell(
-          //     splashColor: Colors.blue.withAlpha(30),
-          //     onTap: () {
-          //       Navigator.push(context,
-          //           MaterialPageRoute(builder: (context) => LoginScreen()));
-          //     },
-          //     child: const SizedBox(
-          //       width: 75,
-          //       height: 75,
-          //       child: Text(
-          //         'Login',
-          //         textAlign: TextAlign.center,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          Card(
+            color: Color.fromARGB(255, 184, 179, 173),
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+              splashColor: Colors.blue.withAlpha(30),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+              },
+              child: const SizedBox(
+                width: 75,
+                height: 75,
+                child: Text(
+                  'Login',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
           const SizedBox(
             height: 50,
             width: 50,
@@ -61,25 +61,25 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
           ),
-          // Card(
-          //   color: Color.fromARGB(255, 184, 179, 173),
-          //   clipBehavior: Clip.hardEdge,
-          //   child: InkWell(
-          //     splashColor: Colors.blue.withAlpha(30),
-          //     onTap: () {
-          //       Navigator.push(context,
-          //           MaterialPageRoute(builder: (context) => HomepageScreen()));
-          //     },
-          //     child: Container(
-          //       width: 75,
-          //       height: 75,
-          //       child: Text(
-          //         'Homepage',
-          //         textAlign: TextAlign.center,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          Card(
+            color: Color.fromARGB(255, 184, 179, 173),
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+              splashColor: Colors.blue.withAlpha(30),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
+              child: Container(
+                width: 75,
+                height: 75,
+                child: Text(
+                  'Homepage',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
         ]),
       ),
     );

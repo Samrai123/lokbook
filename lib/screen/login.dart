@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_second_app/screen/homepage.dart';
+import 'package:my_second_app/screen/profile_screen.dart';
 
 import 'package:my_second_app/screen/register.dart';
 
@@ -109,11 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                HomepageScreen()));
+                                                ProfilePage()));
                                   },
                                 ),
                               ),
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     text: 'Create',
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
