@@ -1,157 +1,147 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:my_second_app/screen/login.dart';
 
-import 'Widget/bcontainer.dart';
+import 'Widget/header_widge.dart';
+import 'Widget/theme_helper.dart';
 
-class ForgetPasswordScreen extends StatefulWidget {
-  const ForgetPasswordScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  Widget _backButton() {
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
-            ),
-            Text('Back',
-                style: GoogleFonts.comicNeue(
-                    fontSize: 12, fontWeight: FontWeight.w900))
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _entryField(String title, {bool isPassword = false}) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: GoogleFonts.comicNeue(
-                fontWeight: FontWeight.bold, fontSize: 17),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          TextField(
-              obscureText: isPassword,
-              decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true))
-        ],
-      ),
-    );
-  }
-
-  Widget _RegisterButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Color.fromARGB(255, 70, 63, 53),
-                offset: Offset(2, 4),
-                blurRadius: 5,
-                spreadRadius: 2)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Color.fromARGB(255, 48, 43, 35),
-                Color.fromARGB(255, 12, 12, 12)
-              ])),
-      child: Text(
-        'Send',
-        style: GoogleFonts.comicNeue(fontSize: 20, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _title() {
-    return Container(
-      child: Text(
-        'LookBook',
-        style: GoogleFonts.comicNeue(
-            fontSize: 32,
-            fontWeight: FontWeight.w900,
-            color: Color.fromARGB(255, 63, 39, 21)),
-      ),
-    );
-  }
-
-  Widget _emailPasswordWidget() {
-    return Column(
-      children: <Widget>[
-        Text('Forget your password?',
-            style: GoogleFonts.comicNeue(
-                fontWeight: FontWeight.bold, fontSize: 17)),
-        _entryField("Email id"),
-      ],
-    );
-  }
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    double _headerHeight = 300;
     return Scaffold(
-      body: Container(
-        height: height,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: -MediaQuery.of(context).size.height * .15,
-              right: -MediaQuery.of(context).size.width * .4,
-              child: BezierContainer(),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: height * .2,
-                    ),
-                    _title(),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    _emailPasswordWidget(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _RegisterButton(),
-                    SizedBox(height: height * .14),
-                  ],
-                ),
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: _headerHeight,
+                child:
+                    HeaderWidget(_headerHeight, true, Icons.password_rounded),
               ),
-            ),
-            Positioned(top: 40, left: 0, child: _backButton()),
-          ],
-        ),
-      ),
-    );
+              SafeArea(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Forgot Password?',
+                              style: TextStyle(
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54),
+                              // textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Enter the email address .',
+                              style: TextStyle(
+                                  // fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54),
+                              // textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 40.0),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: TextFormField(
+                                decoration: ThemeHelper().textInputDecoration(
+                                    "Email", "Enter your email"),
+                                validator: (val) {
+                                  if (val!.isEmpty) {
+                                    return "Email can't be empty";
+                                  } else if (!RegExp(
+                                          r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                                      .hasMatch(val)) {
+                                    return "Enter a valid email address";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              decoration:
+                                  ThemeHelper().inputBoxDecorationShaddow(),
+                            ),
+                            SizedBox(height: 40.0),
+                            Container(
+                              decoration:
+                                  ThemeHelper().buttonBoxDecoration(context),
+                              child: ElevatedButton(
+                                style: ThemeHelper().buttonStyle(),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                                  child: Text(
+                                    "Send".toUpperCase(),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            SizedBox(height: 30.0),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(text: "Remember your password? "),
+                                  TextSpan(
+                                    text: 'Login',
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LoginScreen()),
+                                        );
+                                      },
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
