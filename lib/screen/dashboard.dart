@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'bottom_screen/login.dart';
+import 'homepage.dart';
 import 'login.dart';
 import 'register.dart';
 
@@ -56,6 +57,25 @@ class DashboardScreen extends StatelessWidget {
                 height: 75,
                 child: Text(
                   'Register',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+          Card(
+            color: Color.fromARGB(255, 184, 179, 173),
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+              splashColor: Colors.blue.withAlpha(30),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomepageScreen()));
+              },
+              child: Container(
+                width: 75,
+                height: 75,
+                child: Text(
+                  'Homepage',
                   textAlign: TextAlign.center,
                 ),
               ),
