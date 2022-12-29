@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             Container(
               height: 150,
-              child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
+              child: HeaderWidget(200, false, Icons.person_add_alt_1_rounded),
             ),
             Positioned(top: 40, left: -1, child: _backButton()),
             Container(

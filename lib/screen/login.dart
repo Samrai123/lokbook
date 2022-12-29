@@ -28,9 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             Container(
-              height: _headerHeight,
-              child: HeaderWidget(_headerHeight, true,
-                  Icons.login), //let's create a common header widget
+              height: 150,
+              child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
             ),
             SafeArea(
               child: Container(

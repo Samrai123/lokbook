@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 import 'package:my_second_app/screen/dashboard.dart';
 import 'package:my_second_app/screen/login.dart';
 import 'package:my_second_app/screen/register.dart';
@@ -54,15 +55,15 @@ class _SplashScreenState extends State<SplashScreen> {
         duration: Duration(milliseconds: 1200),
         child: Center(
           child: Container(
-            height: 140.0,
-            width: 140.0,
+            height: 125.0,
+            width: 125.0,
             child: Center(
-              child: ClipOval(
-                child: Icon(
-                  Icons.android_outlined,
-                  size: 128,
-                ), //put your logo here
-              ),
+              child: Container(
+                  height: 90,
+                  child: Image.asset(
+                    'lib/icons/my-logo.png',
+                    color: Color.fromARGB(255, 50, 42, 42),
+                  )),
             ),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
