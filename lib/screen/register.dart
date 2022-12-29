@@ -16,6 +16,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _fnameController = TextEditingController(text: 'Sam');
+  final _lnameController = TextEditingController(text: 'Rai');
+  final _usernameController = TextEditingController(text: 'samrai');
+  final _passwordController = TextEditingController(text: 'samrai123');
+  final _emailController = TextEditingController(text: 'samrai@gmail.com');
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -54,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             Container(
               height: 150,
-              child: HeaderWidget(200, false, Icons.person_add_alt_1_rounded),
+              child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
             ),
             Positioned(top: 40, left: -1, child: _backButton()),
             Container(
@@ -72,6 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         Container(
                           child: TextFormField(
+                            controller: _fnameController,
                             decoration: ThemeHelper().textInputDecoration(
                                 'First Name', 'Enter your first name'),
                           ),
@@ -82,6 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         Container(
                           child: TextFormField(
+                            controller: _lnameController,
                             decoration: ThemeHelper().textInputDecoration(
                                 'Last Name', 'Enter your last name'),
                           ),
@@ -90,6 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
+                            controller: _emailController,
                             decoration: ThemeHelper().textInputDecoration(
                                 "E-mail address", "Enter your email"),
                             keyboardType: TextInputType.emailAddress,
@@ -107,13 +115,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
+                            controller: _usernameController,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Mobile Number", "Enter your mobile number"),
-                            keyboardType: TextInputType.phone,
+                                "Mobile Number", "Enter your Username"),
                             validator: (val) {
                               if (!(val!.isEmpty) &&
                                   !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                return "Enter a valid phone number";
+                                return "Enter a Username";
                               }
                               return null;
                             },
@@ -123,6 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
+                            controller: _passwordController,
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
                                 "Password*", "Enter your password"),
