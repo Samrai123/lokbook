@@ -21,7 +21,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 4495255070082581549),
       name: 'User',
-      lastPropertyId: const IdUid(5, 1664130426780646388),
+      lastPropertyId: const IdUid(6, 1565175082498345430),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -47,6 +47,11 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(5, 1664130426780646388),
             name: 'password',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(6, 1565175082498345430),
+            name: 'email',
             type: 9,
             flags: 0)
       ],
@@ -100,12 +105,14 @@ ModelDefinition getObjectBoxModel() {
           final lnameOffset = fbb.writeString(object.lname);
           final usernameOffset = fbb.writeString(object.username);
           final passwordOffset = fbb.writeString(object.password);
-          fbb.startTable(6);
+          final emailOffset = fbb.writeString(object.email);
+          fbb.startTable(7);
           fbb.addInt64(0, object.userId);
           fbb.addOffset(1, fnameOffset);
           fbb.addOffset(2, lnameOffset);
           fbb.addOffset(3, usernameOffset);
           fbb.addOffset(4, passwordOffset);
+          fbb.addOffset(5, emailOffset);
           fbb.finish(fbb.endTable());
           return object.userId;
         },
@@ -118,6 +125,8 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 6, ''),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 8, ''),
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 14, ''),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 10, ''),
               const fb.StringReader(asciiOptimization: true)
@@ -148,4 +157,7 @@ class User_ {
 
   /// see [User.password]
   static final password = QueryStringProperty<User>(_entities[0].properties[4]);
+
+  /// see [User.email]
+  static final email = QueryStringProperty<User>(_entities[0].properties[5]);
 }

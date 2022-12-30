@@ -4,7 +4,6 @@ import '../objectbox.g.dart';
 
 class ObjectBoxInstance {
   late final Store _store;
-
   late final Box<User> _user;
   //Constructor
   ObjectBoxInstance(this._store) {
@@ -20,7 +19,7 @@ class ObjectBoxInstance {
     return ObjectBoxInstance(store);
   }
 
-  int addUser(User user) {
+  int addAllUser(User user) {
     return _user.put(user);
   }
 

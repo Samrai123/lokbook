@@ -4,11 +4,10 @@ import '../../state/objectbox_state.dart';
 
 class UserDataSource {
   ObjectBoxInstance get objectBoxInstance => ObjectBoxState.objectBoxInstance!;
-  //or ObjectBoxInstance objectBoxInstance = ObjectBoxState.objectBoxInstance!;
 
-  Future<int> addStudent(User user) async {
+  Future<int> addUser(User user) async {
     try {
-      return objectBoxInstance.addUser(user);
+      return objectBoxInstance.addAllUser(user);
     } catch (e) {
       return Future.value(0);
     }

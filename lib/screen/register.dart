@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:my_second_app/model/user.dart';
+import 'package:my_second_app/repository/user_repo.dart';
 
 import 'Widget/header_widge.dart';
 import 'Widget/theme_helper.dart';
@@ -21,6 +24,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _usernameController = TextEditingController(text: 'samrai');
   final _passwordController = TextEditingController(text: 'samrai123');
   final _emailController = TextEditingController(text: 'samrai@gmail.com');
+  final _formKey = GlobalKey<FormState>();
+  _saveUser() async {
+    User user = User(
+        _fnameController.text,
+        _lnameController.text,
+        _emailController.text,
+        _usernameController.text,
+        _passwordController.text);
+    int status = await UserRepositoryImpl().addAllUser(user);
+    _showMessage(status);
+  }
+
+  _showMessage(int status) {
+    if (status > 0) {
+      MotionToast.success(
+        description: const Text('Student added Successfully'),
+      ).show(context);
+    } else {
+      MotionToast.error(
+        description: const Text('Error in adding student'),
+      ).show(context);
+    }
+  }
+
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -46,10 +73,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  final _formKey = GlobalKey<FormState>();
-  bool checkedValue = false;
-  bool checkboxValue = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 120,
                         ),
                         Container(
@@ -117,14 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: TextFormField(
                             controller: _usernameController,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Mobile Number", "Enter your Username"),
-                            validator: (val) {
-                              if (!(val!.isEmpty) &&
-                                  !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                return "Enter a Username";
-                              }
-                              return null;
-                            },
+                                'Username', 'Enter your username'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -145,53 +161,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         SizedBox(height: 15.0),
-                        FormField<bool>(
-                          builder: (state) {
-                            return Column(
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Checkbox(
-                                        value: checkboxValue,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            checkboxValue = value!;
-                                            state.didChange(value);
-                                          });
-                                        }),
-                                    Text(
-                                      "I accept all terms and conditions.",
-                                      style: TextStyle(color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    state.errorText ?? '',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      color: Theme.of(context).errorColor,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            );
-                          },
-                          validator: (value) {
-                            if (!checkboxValue) {
-                              return 'You need to accept terms and conditions';
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
                         SizedBox(height: 20.0),
                         Container(
                           decoration:
                               ThemeHelper().buttonBoxDecoration(context),
                           child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _saveUser();
+                              }
+                            },
                             style: ThemeHelper().buttonStyle(),
                             child: Padding(
                               padding:
@@ -205,14 +184,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             ),
-                            onPressed: () {
-                              //   if (_formKey.currentState!.validate()) {
-                              //     Navigator.of(context).pushAndRemoveUntil(
-                              //         MaterialPageRoute(
-                              //             builder: (context) => ProfilePage()),
-                              //         (Route<dynamic> route) => false);
-                              //   }
-                            },
                           ),
                         ),
                         SizedBox(height: 30.0),

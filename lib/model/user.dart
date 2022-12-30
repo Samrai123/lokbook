@@ -6,8 +6,10 @@ class User {
   int userId;
   String fname;
   String lname;
+  String email;
   String username;
   String password;
 
-  User(this.fname, this.lname, this.username, this.password, {this.userId = 0});
+  User(this.fname, this.lname, this.email, this.username, this.password,
+      {this.userId = 0});
 }
