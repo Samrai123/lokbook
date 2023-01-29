@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:my_second_app/helper/objectbox.dart';
+import 'package:my_second_app/state/objectbox_state.dart';
 
 import 'screen/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //create an object for objectboxinstance
+  ObjectBoxState.objectBoxInstance = await ObjectBoxInstance.init();
   runApp(LookBook());
 }
 

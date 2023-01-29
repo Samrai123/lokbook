@@ -11,6 +11,7 @@ import 'Widget/header_widge.dart';
 import 'homepage.dart';
 
 class ProfilePage extends StatefulWidget {
+  static const String route = "profileScreen";
   @override
   State<StatefulWidget> createState() {
     return _ProfilePageState();

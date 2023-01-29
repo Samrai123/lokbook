@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:my_second_app/repository/user_repo.dart';
+import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
-
+import 'package:my_second_app/screen/Widget/snackbar.dart';
 import 'package:my_second_app/screen/register.dart';
 
 import 'Widget/header_widge.dart';
@@ -19,6 +21,26 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   double _headerHeight = 250;
   Key _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController(text: 'samrai');
+  final _passwordController = TextEditingController(text: 'samrai123');
+
+  _login() async {
+    final islogin = await UserRepositoryImpl()
+        .loginUser(_usernameController.text, _passwordController.text);
+    if (islogin != null) {
+      _goToAnotherPage();
+    } else {
+      _showMessage();
+    }
+  }
+
+  _goToAnotherPage() {
+    Navigator.pushNamed(context, ProfilePage.route);
+  }
+
+  _showMessage() {
+    showSnackbar(context, 'Invalid username or password', Colors.red);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: TextField(
                                   decoration: ThemeHelper().textInputDecoration(
                                       'User Name', 'Enter your user name'),
+                                  controller: _usernameController,
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
@@ -66,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   obscureText: true,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'Password', 'Enter your password'),
+                                  controller: _passwordController,
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
@@ -112,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                ProfilePage()));
+                                                AppMainPage()));
                                   },
                                 ),
                               ),

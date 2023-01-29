@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
@@ -9,6 +10,8 @@ class User {
   String email;
   String username;
   String password;
+
+  final category = ToMany<Category>();
 
   User(this.fname, this.lname, this.email, this.username, this.password,
       {this.userId = 0});

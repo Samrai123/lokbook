@@ -39,11 +39,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   _showMessage(int status) {
     if (status > 0) {
       MotionToast.success(
-        description: const Text('Student added Successfully'),
+        description: const Text('Registered added Successfully'),
       ).show(context);
     } else {
       MotionToast.error(
-        description: const Text('Error in adding student'),
+        description: const Text('Error in Registration'),
       ).show(context);
     }
   }
@@ -103,6 +103,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _fnameController,
                             decoration: ThemeHelper().textInputDecoration(
                                 'First Name', 'Enter your first name'),
+                            validator: ((value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              }
+                              return null;
+                            }),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -114,6 +120,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _lnameController,
                             decoration: ThemeHelper().textInputDecoration(
                                 'Last Name', 'Enter your last name'),
+                            validator: ((value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              }
+                              return null;
+                            }),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -124,14 +136,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             decoration: ThemeHelper().textInputDecoration(
                                 "E-mail address", "Enter your email"),
                             keyboardType: TextInputType.emailAddress,
-                            validator: (val) {
-                              if (!(val!.isEmpty) &&
-                                  !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
-                                      .hasMatch(val)) {
-                                return "Enter a valid email address";
+                            validator: ((value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
                               }
                               return null;
-                            },
+                            }),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -141,6 +151,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _usernameController,
                             decoration: ThemeHelper().textInputDecoration(
                                 'Username', 'Enter your username'),
+                            validator: ((value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              }
+                              return null;
+                            }),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -151,12 +167,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
                                 "Password*", "Enter your password"),
-                            validator: (val) {
-                              if (val!.isEmpty) {
-                                return "Please enter your password";
+                            validator: ((value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
                               }
                               return null;
-                            },
+                            }),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),

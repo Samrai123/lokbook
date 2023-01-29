@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import 'homepage.dart';
 import 'profile_screen.dart';
 import 'login.dart';
 import 'register.dart';
@@ -68,7 +69,7 @@ class DashboardScreen extends StatelessWidget {
               splashColor: Colors.blue.withAlpha(30),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()));
+                    MaterialPageRoute(builder: (context) => AppMainPage()));
               },
               child: Container(
                 width: 75,

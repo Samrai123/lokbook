@@ -12,7 +12,9 @@ import 'dart:typed_data';
 import 'package:flat_buffers/flat_buffers.dart' as fb;
 import 'package:objectbox/internal.dart'; // generated code can access "internal" functionality
 import 'package:objectbox/objectbox.dart';
+import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
+import 'model/category.dart';
 import 'model/user.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
@@ -55,20 +57,46 @@ final _entities = <ModelEntity>[
             type: 9,
             flags: 0)
       ],
+      relations: <ModelRelation>[
+        ModelRelation(
+            id: const IdUid(1, 2854816139748333527),
+            name: 'category',
+            targetId: const IdUid(2, 8585622419017042407))
+      ],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(2, 8585622419017042407),
+      name: 'Category',
+      lastPropertyId: const IdUid(2, 6652221326436080841),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 3716464720721693878),
+            name: 'categoryId',
+            type: 6,
+            flags: 129),
+        ModelProperty(
+            id: const IdUid(2, 6652221326436080841),
+            name: 'categoryName',
+            type: 9,
+            flags: 0)
+      ],
       relations: <ModelRelation>[],
-      backlinks: <ModelBacklink>[])
+      backlinks: <ModelBacklink>[
+        ModelBacklink(name: 'user', srcEntity: 'User', srcField: '')
+      ])
 ];
 
 /// Open an ObjectBox store with the model declared in this file.
-Store openStore(
+Future<Store> openStore(
         {String? directory,
         int? maxDBSizeInKB,
         int? fileMode,
         int? maxReaders,
         bool queriesCaseSensitiveDefault = true,
-        String? macosApplicationGroup}) =>
+        String? macosApplicationGroup}) async =>
     Store(getObjectBoxModel(),
-        directory: directory,
+        directory: directory ?? (await defaultStoreDirectory()).path,
         maxDBSizeInKB: maxDBSizeInKB,
         fileMode: fileMode,
         maxReaders: maxReaders,
@@ -79,9 +107,9 @@ Store openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 4495255070082581549),
+      lastEntityId: const IdUid(2, 8585622419017042407),
       lastIndexId: const IdUid(0, 0),
-      lastRelationId: const IdUid(0, 0),
+      lastRelationId: const IdUid(1, 2854816139748333527),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
@@ -95,7 +123,8 @@ ModelDefinition getObjectBoxModel() {
     User: EntityDefinition<User>(
         model: _entities[0],
         toOneRelations: (User object) => [],
-        toManyRelations: (User object) => {},
+        toManyRelations: (User object) =>
+            {RelInfo<User>.toMany(1, object.userId): object.category},
         getId: (User object) => object.userId,
         setId: (User object, int id) {
           object.userId = id;
@@ -133,7 +162,41 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 12, ''),
               userId:
                   const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
+          InternalToManyAccess.setRelInfo(object.category, store,
+              RelInfo<User>.toMany(1, object.userId), store.box<User>());
+          return object;
+        }),
+    Category: EntityDefinition<Category>(
+        model: _entities[1],
+        toOneRelations: (Category object) => [],
+        toManyRelations: (Category object) =>
+            {RelInfo<User>.toManyBacklink(1, object.categoryId): object.user},
+        getId: (Category object) => object.categoryId,
+        setId: (Category object, int id) {
+          object.categoryId = id;
+        },
+        objectToFB: (Category object, fb.Builder fbb) {
+          final categoryNameOffset = fbb.writeString(object.categoryName);
+          fbb.startTable(3);
+          fbb.addInt64(0, object.categoryId);
+          fbb.addOffset(1, categoryNameOffset);
+          fbb.finish(fbb.endTable());
+          return object.categoryId;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
 
+          final object = Category(
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 6, ''),
+              categoryId:
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
+          InternalToManyAccess.setRelInfo(
+              object.user,
+              store,
+              RelInfo<User>.toManyBacklink(1, object.categoryId),
+              store.box<Category>());
           return object;
         })
   };
@@ -160,4 +223,19 @@ class User_ {
 
   /// see [User.email]
   static final email = QueryStringProperty<User>(_entities[0].properties[5]);
+
+  /// see [User.category]
+  static final category =
+      QueryRelationToMany<User, Category>(_entities[0].relations[0]);
+}
+
+/// [Category] entity fields to define ObjectBox queries.
+class Category_ {
+  /// see [Category.categoryId]
+  static final categoryId =
+      QueryIntegerProperty<Category>(_entities[1].properties[0]);
+
+  /// see [Category.categoryName]
+  static final categoryName =
+      QueryStringProperty<Category>(_entities[1].properties[1]);
 }

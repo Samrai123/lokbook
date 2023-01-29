@@ -44,6 +44,9 @@ dependencies:
   hexcolor: ^3.0.1
   fluttericon: ^2.0.0
   objectbox: ^1.7.0
+  objectbox_flutter_libs: any
+  
+  
 
 dev_dependencies:
   flutter_test:

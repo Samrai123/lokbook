@@ -5,16 +5,22 @@ import '../model/user.dart';
 abstract class UserRepository {
   Future<List<User>> getUser();
   Future<int> addAllUser(User user);
+  Future<User?> loginUser(String username, String password);
 }
 
 class UserRepositoryImpl extends UserRepository {
   @override
   Future<int> addAllUser(User user) {
-    return UserDataSource().addUser(user);
+    return UserLocalDataSource().addUser(user);
   }
 
   @override
   Future<List<User>> getUser() {
-    return UserDataSource().getUser();
+    return UserLocalDataSource().getUser();
+  }
+
+  @override
+  Future<User?> loginUser(String username, String password) {
+    return UserLocalDataSource().loginUser(username, password);
   }
 }

@@ -40,12 +40,37 @@
           "type": 9
         }
       ],
+      "relations": [
+        {
+          "id": "1:2854816139748333527",
+          "name": "category",
+          "targetId": "2:8585622419017042407"
+        }
+      ]
+    },
+    {
+      "id": "2:8585622419017042407",
+      "lastPropertyId": "2:6652221326436080841",
+      "name": "Category",
+      "properties": [
+        {
+          "id": "1:3716464720721693878",
+          "name": "categoryId",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:6652221326436080841",
+          "name": "categoryName",
+          "type": 9
+        }
+      ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:4495255070082581549",
+  "lastEntityId": "2:8585622419017042407",
   "lastIndexId": "0:0",
-  "lastRelationId": "0:0",
+  "lastRelationId": "1:2854816139748333527",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
