@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'package:my_second_app/screen/dashboard.dart';
 import 'package:my_second_app/screen/login.dart';
+import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key, required this.title}) : super(key: key);
@@ -16,6 +18,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  _getDtaFromShredPref() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? value = prefs.getString('1st_key');
+    if (value != null) {
+      Navigator.pushReplacementNamed(context, ProfilePage.route);
+    } else {
+      Navigator.pushReplacementNamed(context, LoginScreen.route);
+    }
+  }
+
+  @override
+  void initState() {
+    _getDtaFromShredPref();
+
+    super.initState();
+  }
+
   bool _isVisible = false;
 
   _SplashScreenState() {

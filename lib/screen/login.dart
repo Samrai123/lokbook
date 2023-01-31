@@ -13,6 +13,7 @@ import 'forgetpass.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+  static const String route = "loginScreen";
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
