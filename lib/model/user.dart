@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:my_second_app/model/category.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()

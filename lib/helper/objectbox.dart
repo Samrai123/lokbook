@@ -1,16 +1,19 @@
-import 'package:flutter/foundation.dart';
 import 'package:my_second_app/model/user.dart';
+
 import 'package:path_provider/path_provider.dart';
+import '../model/category.dart';
 import '../objectbox.g.dart';
 
 class ObjectBoxInstance {
   late final Store _store;
   late final Box<User> _user;
   late final Box<Category> _category;
+
   //Constructor
   ObjectBoxInstance(this._store) {
     _user = Box<User>(_store);
     _category = Box<Category>(_store);
+
     insertCategory();
   }
 //initialization of objectbox
@@ -18,7 +21,7 @@ class ObjectBoxInstance {
     var dir = await getApplicationDocumentsDirectory();
     final store = Store(
       getObjectBoxModel(),
-      directory: '${dir.path}/user_info',
+      directory: '${dir.path}/user_main',
     );
     return ObjectBoxInstance(store);
   }
@@ -41,6 +44,13 @@ class ObjectBoxInstance {
     return _category.getAll();
   }
 
+  Category? getCategoryByCategoryName(String categoryName) {
+    return _category
+        .query(Category_.categoryName.equals(categoryName))
+        .build()
+        .findFirst();
+  }
+
   //login user
   User? loginUser(String username, String password) {
     return _user
@@ -54,6 +64,9 @@ class ObjectBoxInstance {
     List<Category> lstCategory = getAllCategory();
     if (lstCategory.isEmpty) {
       addCategory(Category('Art'));
+      addCategory(Category('Fashion'));
+      addCategory(Category('Abstract'));
+      addCategory(Category('Wildlife'));
     }
   }
 }

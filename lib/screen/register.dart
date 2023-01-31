@@ -1,24 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:motion_toast/motion_toast.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:my_second_app/model/category.dart';
 import 'package:my_second_app/model/user.dart';
+import 'package:my_second_app/repository/category_repo.dart';
 import 'package:my_second_app/repository/user_repo.dart';
 
 import 'Widget/header_widge.dart';
 import 'Widget/theme_helper.dart';
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
   @override
-  State<StatefulWidget> createState() {
-    return _RegisterScreenState();
-  }
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  List<Category> _lstCategorySelected = [];
+
   final _fnameController = TextEditingController(text: 'Sam');
   final _lnameController = TextEditingController(text: 'Rai');
   final _usernameController = TextEditingController(text: 'samrai');
@@ -32,6 +37,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _emailController.text,
         _usernameController.text,
         _passwordController.text);
+    // Add all the courses
+    user.category.addAll(_lstCategorySelected);
+
     int status = await UserRepositoryImpl().addAllUser(user);
     _showMessage(status);
   }
@@ -45,6 +53,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
       MotionToast.error(
         description: const Text('Error in Registration'),
       ).show(context);
+    }
+  }
+
+  _showUserCategory() async {
+    List<User> lstUser = await UserRepositoryImpl().getUser();
+    for (User u in lstUser) {
+      debugPrint(u.fname);
+      for (Category c in u.category) {
+        debugPrint(c.categoryName);
+      }
     }
   }
 
@@ -82,12 +100,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             Container(
               height: 150,
-              child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
+              child: const HeaderWidget(
+                  150, false, Icons.person_add_alt_1_rounded),
             ),
             Positioned(top: 40, left: -1, child: _backButton()),
             Container(
-              margin: EdgeInsets.fromLTRB(25, 50, 25, 10),
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              margin: const EdgeInsets.fromLTRB(25, 50, 25, 10),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               alignment: Alignment.center,
               child: Column(
                 children: [
@@ -99,6 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 120,
                         ),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _fnameController,
                             decoration: ThemeHelper().textInputDecoration(
@@ -110,12 +130,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             }),
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _lnameController,
                             decoration: ThemeHelper().textInputDecoration(
@@ -127,10 +147,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             }),
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 20.0),
+                        const SizedBox(height: 20.0),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _emailController,
                             decoration: ThemeHelper().textInputDecoration(
@@ -143,10 +163,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             }),
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 20.0),
+                        const SizedBox(height: 20.0),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _usernameController,
                             decoration: ThemeHelper().textInputDecoration(
@@ -158,10 +178,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             }),
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 20.0),
+                        const SizedBox(height: 20.0),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _passwordController,
                             obscureText: true,
@@ -174,10 +194,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             }),
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 15.0),
-                        SizedBox(height: 20.0),
+                        const SizedBox(height: 15.0),
+                        FutureBuilder(
+                          future: CategoryRepositoryImpl().getAllCategory(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return MultiSelectDialogField(
+                                //initialValue: [snapshot.data![0]],
+                                title: const Text('Select Category'),
+                                items: snapshot.data!
+                                    .map((category) => MultiSelectItem(
+                                          category,
+                                          category.categoryName,
+                                        ))
+                                    .toList(),
+                                listType: MultiSelectListType.CHIP,
+                                buttonText: const Text('Select course'),
+                                buttonIcon: const Icon(Icons.search),
+                                onConfirm: (values) {
+                                  _lstCategorySelected = values;
+                                },
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                validator: ((value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select course';
+                                  }
+                                  return null;
+                                }),
+                              );
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 20.0),
                         Container(
                           decoration:
                               ThemeHelper().buttonBoxDecoration(context),
@@ -193,7 +252,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
                                 "Register".toUpperCase(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -202,12 +261,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 30.0),
-                        Text(
+                        const SizedBox(height: 30.0),
+                        const Text(
                           "Or create account using social media",
                           style: TextStyle(color: Colors.grey),
                         ),
-                        SizedBox(height: 25.0),
+                        const SizedBox(height: 25.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -231,7 +290,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 });
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 30.0,
                             ),
                           ],

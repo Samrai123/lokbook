@@ -4,73 +4,73 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:4495255070082581549",
-      "lastPropertyId": "6:1565175082498345430",
-      "name": "User",
-      "properties": [
-        {
-          "id": "1:7630077512850560041",
-          "name": "userId",
-          "type": 6,
-          "flags": 129
-        },
-        {
-          "id": "2:5261905693012467395",
-          "name": "fname",
-          "type": 9
-        },
-        {
-          "id": "3:8178923949863005319",
-          "name": "lname",
-          "type": 9
-        },
-        {
-          "id": "4:7693748439842128859",
-          "name": "username",
-          "type": 9
-        },
-        {
-          "id": "5:1664130426780646388",
-          "name": "password",
-          "type": 9
-        },
-        {
-          "id": "6:1565175082498345430",
-          "name": "email",
-          "type": 9
-        }
-      ],
-      "relations": [
-        {
-          "id": "1:2854816139748333527",
-          "name": "category",
-          "targetId": "2:8585622419017042407"
-        }
-      ]
-    },
-    {
-      "id": "2:8585622419017042407",
-      "lastPropertyId": "2:6652221326436080841",
+      "id": "1:7833304853780513268",
+      "lastPropertyId": "2:3473102428203332137",
       "name": "Category",
       "properties": [
         {
-          "id": "1:3716464720721693878",
+          "id": "1:9219341726474841975",
           "name": "categoryId",
           "type": 6,
           "flags": 129
         },
         {
-          "id": "2:6652221326436080841",
+          "id": "2:3473102428203332137",
           "name": "categoryName",
           "type": 9
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:1778043269348404774",
+      "lastPropertyId": "6:2523662494154779388",
+      "name": "User",
+      "properties": [
+        {
+          "id": "1:8129565931811394196",
+          "name": "userId",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:813669719301187576",
+          "name": "fname",
+          "type": 9
+        },
+        {
+          "id": "3:8675208252336777295",
+          "name": "lname",
+          "type": 9
+        },
+        {
+          "id": "4:5484354222771601211",
+          "name": "email",
+          "type": 9
+        },
+        {
+          "id": "5:3858221509167759295",
+          "name": "username",
+          "type": 9
+        },
+        {
+          "id": "6:2523662494154779388",
+          "name": "password",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:2349829023543117133",
+          "name": "category",
+          "targetId": "1:7833304853780513268"
+        }
+      ]
     }
   ],
-  "lastEntityId": "2:8585622419017042407",
+  "lastEntityId": "2:1778043269348404774",
   "lastIndexId": "0:0",
-  "lastRelationId": "1:2854816139748333527",
+  "lastRelationId": "1:2349829023543117133",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,

@@ -6,7 +6,6 @@ class Category {
   @Id(assignable: true)
   int categoryId;
   String categoryName;
-
   @Backlink()
   final user = ToMany<User>();
   Category(this.categoryName, {this.categoryId = 0});

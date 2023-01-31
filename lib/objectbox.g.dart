@@ -21,62 +21,18 @@ export 'package:objectbox/objectbox.dart'; // so that callers only have to impor
 
 final _entities = <ModelEntity>[
   ModelEntity(
-      id: const IdUid(1, 4495255070082581549),
-      name: 'User',
-      lastPropertyId: const IdUid(6, 1565175082498345430),
-      flags: 0,
-      properties: <ModelProperty>[
-        ModelProperty(
-            id: const IdUid(1, 7630077512850560041),
-            name: 'userId',
-            type: 6,
-            flags: 129),
-        ModelProperty(
-            id: const IdUid(2, 5261905693012467395),
-            name: 'fname',
-            type: 9,
-            flags: 0),
-        ModelProperty(
-            id: const IdUid(3, 8178923949863005319),
-            name: 'lname',
-            type: 9,
-            flags: 0),
-        ModelProperty(
-            id: const IdUid(4, 7693748439842128859),
-            name: 'username',
-            type: 9,
-            flags: 0),
-        ModelProperty(
-            id: const IdUid(5, 1664130426780646388),
-            name: 'password',
-            type: 9,
-            flags: 0),
-        ModelProperty(
-            id: const IdUid(6, 1565175082498345430),
-            name: 'email',
-            type: 9,
-            flags: 0)
-      ],
-      relations: <ModelRelation>[
-        ModelRelation(
-            id: const IdUid(1, 2854816139748333527),
-            name: 'category',
-            targetId: const IdUid(2, 8585622419017042407))
-      ],
-      backlinks: <ModelBacklink>[]),
-  ModelEntity(
-      id: const IdUid(2, 8585622419017042407),
+      id: const IdUid(1, 7833304853780513268),
       name: 'Category',
-      lastPropertyId: const IdUid(2, 6652221326436080841),
+      lastPropertyId: const IdUid(2, 3473102428203332137),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 3716464720721693878),
+            id: const IdUid(1, 9219341726474841975),
             name: 'categoryId',
             type: 6,
             flags: 129),
         ModelProperty(
-            id: const IdUid(2, 6652221326436080841),
+            id: const IdUid(2, 3473102428203332137),
             name: 'categoryName',
             type: 9,
             flags: 0)
@@ -84,7 +40,51 @@ final _entities = <ModelEntity>[
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[
         ModelBacklink(name: 'user', srcEntity: 'User', srcField: '')
-      ])
+      ]),
+  ModelEntity(
+      id: const IdUid(2, 1778043269348404774),
+      name: 'User',
+      lastPropertyId: const IdUid(6, 2523662494154779388),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 8129565931811394196),
+            name: 'userId',
+            type: 6,
+            flags: 129),
+        ModelProperty(
+            id: const IdUid(2, 813669719301187576),
+            name: 'fname',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 8675208252336777295),
+            name: 'lname',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 5484354222771601211),
+            name: 'email',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 3858221509167759295),
+            name: 'username',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(6, 2523662494154779388),
+            name: 'password',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[
+        ModelRelation(
+            id: const IdUid(1, 2349829023543117133),
+            name: 'category',
+            targetId: const IdUid(1, 7833304853780513268))
+      ],
+      backlinks: <ModelBacklink>[])
 ];
 
 /// Open an ObjectBox store with the model declared in this file.
@@ -107,9 +107,9 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(2, 8585622419017042407),
+      lastEntityId: const IdUid(2, 1778043269348404774),
       lastIndexId: const IdUid(0, 0),
-      lastRelationId: const IdUid(1, 2854816139748333527),
+      lastRelationId: const IdUid(1, 2349829023543117133),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
@@ -120,54 +120,8 @@ ModelDefinition getObjectBoxModel() {
       version: 1);
 
   final bindings = <Type, EntityDefinition>{
-    User: EntityDefinition<User>(
-        model: _entities[0],
-        toOneRelations: (User object) => [],
-        toManyRelations: (User object) =>
-            {RelInfo<User>.toMany(1, object.userId): object.category},
-        getId: (User object) => object.userId,
-        setId: (User object, int id) {
-          object.userId = id;
-        },
-        objectToFB: (User object, fb.Builder fbb) {
-          final fnameOffset = fbb.writeString(object.fname);
-          final lnameOffset = fbb.writeString(object.lname);
-          final usernameOffset = fbb.writeString(object.username);
-          final passwordOffset = fbb.writeString(object.password);
-          final emailOffset = fbb.writeString(object.email);
-          fbb.startTable(7);
-          fbb.addInt64(0, object.userId);
-          fbb.addOffset(1, fnameOffset);
-          fbb.addOffset(2, lnameOffset);
-          fbb.addOffset(3, usernameOffset);
-          fbb.addOffset(4, passwordOffset);
-          fbb.addOffset(5, emailOffset);
-          fbb.finish(fbb.endTable());
-          return object.userId;
-        },
-        objectFromFB: (Store store, ByteData fbData) {
-          final buffer = fb.BufferContext(fbData);
-          final rootOffset = buffer.derefObject(0);
-
-          final object = User(
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 6, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 8, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 14, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 10, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 12, ''),
-              userId:
-                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
-          InternalToManyAccess.setRelInfo(object.category, store,
-              RelInfo<User>.toMany(1, object.userId), store.box<User>());
-          return object;
-        }),
     Category: EntityDefinition<Category>(
-        model: _entities[1],
+        model: _entities[0],
         toOneRelations: (Category object) => [],
         toManyRelations: (Category object) =>
             {RelInfo<User>.toManyBacklink(1, object.categoryId): object.user},
@@ -198,44 +152,90 @@ ModelDefinition getObjectBoxModel() {
               RelInfo<User>.toManyBacklink(1, object.categoryId),
               store.box<Category>());
           return object;
+        }),
+    User: EntityDefinition<User>(
+        model: _entities[1],
+        toOneRelations: (User object) => [],
+        toManyRelations: (User object) =>
+            {RelInfo<User>.toMany(1, object.userId): object.category},
+        getId: (User object) => object.userId,
+        setId: (User object, int id) {
+          object.userId = id;
+        },
+        objectToFB: (User object, fb.Builder fbb) {
+          final fnameOffset = fbb.writeString(object.fname);
+          final lnameOffset = fbb.writeString(object.lname);
+          final emailOffset = fbb.writeString(object.email);
+          final usernameOffset = fbb.writeString(object.username);
+          final passwordOffset = fbb.writeString(object.password);
+          fbb.startTable(7);
+          fbb.addInt64(0, object.userId);
+          fbb.addOffset(1, fnameOffset);
+          fbb.addOffset(2, lnameOffset);
+          fbb.addOffset(3, emailOffset);
+          fbb.addOffset(4, usernameOffset);
+          fbb.addOffset(5, passwordOffset);
+          fbb.finish(fbb.endTable());
+          return object.userId;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = User(
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 6, ''),
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 8, ''),
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 10, ''),
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 12, ''),
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 14, ''),
+              userId:
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
+          InternalToManyAccess.setRelInfo(object.category, store,
+              RelInfo<User>.toMany(1, object.userId), store.box<User>());
+          return object;
         })
   };
 
   return ModelDefinition(model, bindings);
 }
 
-/// [User] entity fields to define ObjectBox queries.
-class User_ {
-  /// see [User.userId]
-  static final userId = QueryIntegerProperty<User>(_entities[0].properties[0]);
-
-  /// see [User.fname]
-  static final fname = QueryStringProperty<User>(_entities[0].properties[1]);
-
-  /// see [User.lname]
-  static final lname = QueryStringProperty<User>(_entities[0].properties[2]);
-
-  /// see [User.username]
-  static final username = QueryStringProperty<User>(_entities[0].properties[3]);
-
-  /// see [User.password]
-  static final password = QueryStringProperty<User>(_entities[0].properties[4]);
-
-  /// see [User.email]
-  static final email = QueryStringProperty<User>(_entities[0].properties[5]);
-
-  /// see [User.category]
-  static final category =
-      QueryRelationToMany<User, Category>(_entities[0].relations[0]);
-}
-
 /// [Category] entity fields to define ObjectBox queries.
 class Category_ {
   /// see [Category.categoryId]
   static final categoryId =
-      QueryIntegerProperty<Category>(_entities[1].properties[0]);
+      QueryIntegerProperty<Category>(_entities[0].properties[0]);
 
   /// see [Category.categoryName]
   static final categoryName =
-      QueryStringProperty<Category>(_entities[1].properties[1]);
+      QueryStringProperty<Category>(_entities[0].properties[1]);
+}
+
+/// [User] entity fields to define ObjectBox queries.
+class User_ {
+  /// see [User.userId]
+  static final userId = QueryIntegerProperty<User>(_entities[1].properties[0]);
+
+  /// see [User.fname]
+  static final fname = QueryStringProperty<User>(_entities[1].properties[1]);
+
+  /// see [User.lname]
+  static final lname = QueryStringProperty<User>(_entities[1].properties[2]);
+
+  /// see [User.email]
+  static final email = QueryStringProperty<User>(_entities[1].properties[3]);
+
+  /// see [User.username]
+  static final username = QueryStringProperty<User>(_entities[1].properties[4]);
+
+  /// see [User.password]
+  static final password = QueryStringProperty<User>(_entities[1].properties[5]);
+
+  /// see [User.category]
+  static final category =
+      QueryRelationToMany<User, Category>(_entities[1].relations[0]);
 }

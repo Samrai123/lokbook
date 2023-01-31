@@ -45,6 +45,8 @@ dependencies:
   fluttericon: ^2.0.0
   objectbox: ^1.7.0
   objectbox_flutter_libs: any
+  wear: ^1.1.0
+  multi_select_flutter: ^4.1.3
   
   
 
