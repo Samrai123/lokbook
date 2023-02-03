@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_second_app/app/constants.dart';
+import 'package:my_second_app/app/user_permisson.dart';
 import 'package:my_second_app/screen/forgetpass.dart';
 import 'package:my_second_app/screen/login.dart';
 import 'package:my_second_app/screen/register.dart';
@@ -11,6 +13,7 @@ import 'Widget/header_widge.dart';
 import 'homepage.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
   static const String route = "profileScreen";
   @override
   State<StatefulWidget> createState() {
@@ -19,6 +22,21 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    debugPrint(Constant.token);
+    checkPermission();
+  }
+
+  // void show() {
+  //   showSnackbar(context, 'Token : ${Constant.token}', Colors.yellow);
+  // }
+
+  checkPermission() async {
+    await UserPermission.checkCameraPermission();
+  }
+
   double _drawerIconSize = 24;
   double _drawerFontSize = 17;
   int _selectedIndex = 0;
@@ -172,7 +190,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AppMainPage()),
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
               ),

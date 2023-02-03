@@ -15,10 +15,11 @@ class User {
   String? userId;
   String? fname;
   String? lname;
+  String? image;
   String? email;
   String? username;
   String? password;
-  String? image;
+
   @JsonKey(name: 'category')
   List<Category>? categorys;
   final category = ToMany<Category>();

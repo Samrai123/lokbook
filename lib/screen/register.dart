@@ -50,11 +50,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   _saveUser() async {
     User user = User(
-      _fnameController.text,
-      _lnameController.text,
-      _emailController.text,
-      _usernameController.text,
-      _passwordController.text,
+      fname: _fnameController.text,
+      lname: _lnameController.text,
+      email: _emailController.text,
+      username: _usernameController.text,
+      password: _passwordController.text,
     );
     // Add all the courses
     user.category.addAll(_lstCategorySelected);

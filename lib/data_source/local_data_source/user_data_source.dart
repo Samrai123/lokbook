@@ -23,11 +23,15 @@ class UserLocalDataSource {
     }
   }
 
-  Future<User?> loginUser(String username, String password) {
+  Future<bool> loginUser(String username, String password) async {
     try {
-      return Future.value(objectBoxInstance.loginUser(username, password));
+      if (objectBoxInstance.loginUser(username, password) != null) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
-      return Future.value(null);
+      throw Exception('Error occured : ${e.toString()}');
     }
   }
 }

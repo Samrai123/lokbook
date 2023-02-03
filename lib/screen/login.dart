@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_second_app/repository/user_repo.dart';
+import 'package:my_second_app/screen/dashboard.dart';
 import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/Widget/snackbar.dart';
@@ -21,14 +22,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   double _headerHeight = 250;
-  Key _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController(text: 'samrai');
   final _passwordController = TextEditingController(text: 'samrai123');
 
   _login() async {
     final islogin = await UserRepositoryImpl()
         .loginUser(_usernameController.text, _passwordController.text);
-    if (islogin != null) {
+    if (islogin) {
       _goToAnotherPage();
     } else {
       _showMessage();
@@ -36,7 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _goToAnotherPage() {
-    Navigator.pushNamed(context, ProfilePage.route);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => DashboardScreen()));
   }
 
   _showMessage() {
@@ -78,21 +80,38 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
-                                child: TextField(
+                                child: TextFormField(
                                   decoration: ThemeHelper().textInputDecoration(
                                       'User Name', 'Enter your user name'),
                                   controller: _usernameController,
+                                  onSaved: (newValue) {
+                                    setState(() {
+                                      _usernameController.text = newValue!;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter username';
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
                               const SizedBox(height: 30.0),
                               Container(
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
-                                child: TextField(
+                                child: TextFormField(
                                   obscureText: true,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'Password', 'Enter your password'),
                                   controller: _passwordController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter password';
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
                               const SizedBox(height: 15.0),
@@ -133,11 +152,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                AppMainPage()));
+                                    if (_formKey.currentState!.validate()) {
+                                      _login();
+                                    }
                                   },
                                 ),
                               ),

@@ -1,87 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-import 'homepage.dart';
-import 'profile_screen.dart';
-import 'login.dart';
-import 'register.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:my_second_app/app/constants.dart';
+import 'package:my_second_app/app/user_permisson.dart';
+import 'package:my_second_app/screen/homepage.dart';
+import 'package:my_second_app/screen/post_screen.dart';
+import 'package:my_second_app/screen/profile_screen.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
+  static const String route = "dashboardScreen";
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    debugPrint(Constant.token);
+    checkPermission();
+  }
+
+  // void show() {
+  //   showSnackbar(context, 'Token : ${Constant.token}', Colors.yellow);
+  // }
+
+  checkPermission() async {
+    await UserPermission.checkCameraPermission();
+  }
+
+  int _selectedIndex = 0;
+  final List<Widget> _lstScreen = [
+    const HomeScreen(),
+    const PostScreen(),
+    const ProfilePage(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dashboard'),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 48, 43, 35),
-      ),
-      body: Container(
-        child: Row(children: [
-          Card(
-            color: Color.fromARGB(255, 184, 179, 173),
-            clipBehavior: Clip.hardEdge,
-            child: InkWell(
-              splashColor: Colors.blue.withAlpha(30),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
-              },
-              child: const SizedBox(
-                width: 75,
-                height: 75,
-                child: Text(
-                  'Login',
-                  textAlign: TextAlign.center,
-                ),
-              ),
+      body: _lstScreen[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_a_photo),
+            label: 'Post',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person_2_sharp,
+              color: Colors.black,
             ),
+            label: 'Profile',
           ),
-          const SizedBox(
-            height: 50,
-            width: 50,
-          ),
-          Card(
-            color: Color.fromARGB(255, 184, 179, 173),
-            clipBehavior: Clip.hardEdge,
-            child: InkWell(
-              splashColor: Colors.blue.withAlpha(30),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterScreen()));
-              },
-              child: Container(
-                width: 75,
-                height: 75,
-                child: Text(
-                  'Register',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-          Card(
-            color: Color.fromARGB(255, 184, 179, 173),
-            clipBehavior: Clip.hardEdge,
-            child: InkWell(
-              splashColor: Colors.blue.withAlpha(30),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AppMainPage()));
-              },
-              child: Container(
-                width: 75,
-                height: 75,
-                child: Text(
-                  'Homepage',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        ]),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Color.fromARGB(255, 136, 128, 128),
+        unselectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
+        onTap: (value) {
+          setState(() {
+            _selectedIndex = value;
+          });
+        },
       ),
     );
   }

@@ -1,19 +1,26 @@
 import 'dart:io';
 
+import 'package:my_second_app/app/network_connectivity.dart';
 import 'package:my_second_app/data_source/local_data_source/user_data_source.dart';
+import 'package:my_second_app/data_source/remote_data_source/user_data_source.dart';
 
 import '../model/user.dart';
 
 abstract class UserRepository {
   Future<List<User>> getUser();
   Future<int> addAllUser(File? file, User user);
-  Future<User?> loginUser(String username, String password);
+  Future<bool> loginUser(String username, String password);
 }
 
 class UserRepositoryImpl extends UserRepository {
   @override
   Future<int> addAllUser(File? file, User user) async {
-    return UserLocalDataSource().addUser(file, user);
+    bool status = await NetworkConnectivity.isOnline();
+    if (status) {
+      return UserRemoteDataSource().addUser(file, user);
+    } else {
+      return UserLocalDataSource().addUser(file, user);
+    }
   }
 
   @override
@@ -22,7 +29,13 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<User?> loginUser(String username, String password) {
-    return UserLocalDataSource().loginUser(username, password);
+  Future<bool> loginUser(String username, String password) async {
+    bool status = await NetworkConnectivity.isOnline();
+    if (status) {
+      return UserRemoteDataSource().loginUser(username, password);
+    } else {
+      return false;
+      // return UserLocalDataSource().loginUser(username, password);
+    }
   }
 }
