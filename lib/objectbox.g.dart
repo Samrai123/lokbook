@@ -23,19 +23,25 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 7833304853780513268),
       name: 'Category',
-      lastPropertyId: const IdUid(2, 3473102428203332137),
+      lastPropertyId: const IdUid(3, 869272274989982148),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
             id: const IdUid(1, 9219341726474841975),
             name: 'categoryId',
-            type: 6,
-            flags: 129),
+            type: 9,
+            flags: 2080,
+            indexId: const IdUid(1, 1176090961191446739)),
         ModelProperty(
             id: const IdUid(2, 3473102428203332137),
             name: 'categoryName',
             type: 9,
-            flags: 0)
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 869272274989982148),
+            name: 'id',
+            type: 6,
+            flags: 129)
       ],
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[
@@ -44,14 +50,15 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(2, 1778043269348404774),
       name: 'User',
-      lastPropertyId: const IdUid(6, 2523662494154779388),
+      lastPropertyId: const IdUid(9, 3937542071868674961),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
             id: const IdUid(1, 8129565931811394196),
             name: 'userId',
-            type: 6,
-            flags: 129),
+            type: 9,
+            flags: 2080,
+            indexId: const IdUid(2, 4662931185944076797)),
         ModelProperty(
             id: const IdUid(2, 813669719301187576),
             name: 'fname',
@@ -75,6 +82,16 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(6, 2523662494154779388),
             name: 'password',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(8, 3110527095192987087),
+            name: 'uId',
+            type: 6,
+            flags: 129),
+        ModelProperty(
+            id: const IdUid(9, 3937542071868674961),
+            name: 'image',
             type: 9,
             flags: 0)
       ],
@@ -108,12 +125,12 @@ ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
       lastEntityId: const IdUid(2, 1778043269348404774),
-      lastIndexId: const IdUid(0, 0),
+      lastIndexId: const IdUid(2, 4662931185944076797),
       lastRelationId: const IdUid(1, 2349829023543117133),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [8849096572590381187],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -124,18 +141,20 @@ ModelDefinition getObjectBoxModel() {
         model: _entities[0],
         toOneRelations: (Category object) => [],
         toManyRelations: (Category object) =>
-            {RelInfo<User>.toManyBacklink(1, object.categoryId): object.user},
-        getId: (Category object) => object.categoryId,
+            {RelInfo<User>.toManyBacklink(1, object.id): object.user},
+        getId: (Category object) => object.id,
         setId: (Category object, int id) {
-          object.categoryId = id;
+          object.id = id;
         },
         objectToFB: (Category object, fb.Builder fbb) {
+          final categoryIdOffset = fbb.writeString(object.categoryId);
           final categoryNameOffset = fbb.writeString(object.categoryName);
-          fbb.startTable(3);
-          fbb.addInt64(0, object.categoryId);
+          fbb.startTable(4);
+          fbb.addOffset(0, categoryIdOffset);
           fbb.addOffset(1, categoryNameOffset);
+          fbb.addInt64(2, object.id);
           fbb.finish(fbb.endTable());
-          return object.categoryId;
+          return object.id;
         },
         objectFromFB: (Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
@@ -143,13 +162,14 @@ ModelDefinition getObjectBoxModel() {
 
           final object = Category(
               const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 4, ''),
+              const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 6, ''),
-              categoryId:
-                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
           InternalToManyAccess.setRelInfo(
               object.user,
               store,
-              RelInfo<User>.toManyBacklink(1, object.categoryId),
+              RelInfo<User>.toManyBacklink(1, object.id),
               store.box<Category>());
           return object;
         }),
@@ -157,46 +177,62 @@ ModelDefinition getObjectBoxModel() {
         model: _entities[1],
         toOneRelations: (User object) => [],
         toManyRelations: (User object) =>
-            {RelInfo<User>.toMany(1, object.userId): object.category},
-        getId: (User object) => object.userId,
+            {RelInfo<User>.toMany(1, object.uId): object.category},
+        getId: (User object) => object.uId,
         setId: (User object, int id) {
-          object.userId = id;
+          object.uId = id;
         },
         objectToFB: (User object, fb.Builder fbb) {
-          final fnameOffset = fbb.writeString(object.fname);
-          final lnameOffset = fbb.writeString(object.lname);
-          final emailOffset = fbb.writeString(object.email);
-          final usernameOffset = fbb.writeString(object.username);
-          final passwordOffset = fbb.writeString(object.password);
-          fbb.startTable(7);
-          fbb.addInt64(0, object.userId);
+          final userIdOffset =
+              object.userId == null ? null : fbb.writeString(object.userId!);
+          final fnameOffset =
+              object.fname == null ? null : fbb.writeString(object.fname!);
+          final lnameOffset =
+              object.lname == null ? null : fbb.writeString(object.lname!);
+          final emailOffset =
+              object.email == null ? null : fbb.writeString(object.email!);
+          final usernameOffset = object.username == null
+              ? null
+              : fbb.writeString(object.username!);
+          final passwordOffset = object.password == null
+              ? null
+              : fbb.writeString(object.password!);
+          final imageOffset =
+              object.image == null ? null : fbb.writeString(object.image!);
+          fbb.startTable(10);
+          fbb.addOffset(0, userIdOffset);
           fbb.addOffset(1, fnameOffset);
           fbb.addOffset(2, lnameOffset);
           fbb.addOffset(3, emailOffset);
           fbb.addOffset(4, usernameOffset);
           fbb.addOffset(5, passwordOffset);
+          fbb.addInt64(7, object.uId);
+          fbb.addOffset(8, imageOffset);
           fbb.finish(fbb.endTable());
-          return object.userId;
+          return object.uId;
         },
         objectFromFB: (Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
 
           final object = User(
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 6, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 8, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 10, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 12, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 14, ''),
-              userId:
-                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
+              userId: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 4),
+              fname: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 6),
+              lname: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 8),
+              image: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 20),
+              email: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 10),
+              username: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 12),
+              password: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 14),
+              uId: const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0));
           InternalToManyAccess.setRelInfo(object.category, store,
-              RelInfo<User>.toMany(1, object.userId), store.box<User>());
+              RelInfo<User>.toMany(1, object.uId), store.box<User>());
           return object;
         })
   };
@@ -208,17 +244,20 @@ ModelDefinition getObjectBoxModel() {
 class Category_ {
   /// see [Category.categoryId]
   static final categoryId =
-      QueryIntegerProperty<Category>(_entities[0].properties[0]);
+      QueryStringProperty<Category>(_entities[0].properties[0]);
 
   /// see [Category.categoryName]
   static final categoryName =
       QueryStringProperty<Category>(_entities[0].properties[1]);
+
+  /// see [Category.id]
+  static final id = QueryIntegerProperty<Category>(_entities[0].properties[2]);
 }
 
 /// [User] entity fields to define ObjectBox queries.
 class User_ {
   /// see [User.userId]
-  static final userId = QueryIntegerProperty<User>(_entities[1].properties[0]);
+  static final userId = QueryStringProperty<User>(_entities[1].properties[0]);
 
   /// see [User.fname]
   static final fname = QueryStringProperty<User>(_entities[1].properties[1]);
@@ -234,6 +273,12 @@ class User_ {
 
   /// see [User.password]
   static final password = QueryStringProperty<User>(_entities[1].properties[5]);
+
+  /// see [User.uId]
+  static final uId = QueryIntegerProperty<User>(_entities[1].properties[6]);
+
+  /// see [User.image]
+  static final image = QueryStringProperty<User>(_entities[1].properties[7]);
 
   /// see [User.category]
   static final category =

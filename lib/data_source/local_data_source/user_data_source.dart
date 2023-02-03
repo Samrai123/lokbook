@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../helper/objectbox.dart';
 import '../../model/user.dart';
 import '../../state/objectbox_state.dart';
@@ -5,7 +7,7 @@ import '../../state/objectbox_state.dart';
 class UserLocalDataSource {
   ObjectBoxInstance get objectBoxInstance => ObjectBoxState.objectBoxInstance!;
 
-  Future<int> addUser(User user) async {
+  Future<int> addUser(File? file, User user) async {
     try {
       return objectBoxInstance.addAllUser(user);
     } catch (e) {

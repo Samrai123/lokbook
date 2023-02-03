@@ -7,6 +7,7 @@ import 'screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  ObjectBoxInstance.deleteDatabase();
   //create an object for objectboxinstance
   ObjectBoxState.objectBoxInstance = await ObjectBoxInstance.init();
   runApp(LookBook());

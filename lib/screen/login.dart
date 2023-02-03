@@ -57,45 +57,45 @@ class _LoginScreenState extends State<LoginScreen> {
             SafeArea(
               child: Container(
                   padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  margin: EdgeInsets.fromLTRB(
+                  margin: const EdgeInsets.fromLTRB(
                       20, 10, 20, 10), // This will be the login form
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         'Hello',
                         style: TextStyle(
                             fontSize: 60, fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const Text(
                         'Signin into your account',
                         style: TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 30.0),
                       Form(
                           key: _formKey,
                           child: Column(
                             children: [
                               Container(
+                                decoration:
+                                    ThemeHelper().inputBoxDecorationShaddow(),
                                 child: TextField(
                                   decoration: ThemeHelper().textInputDecoration(
                                       'User Name', 'Enter your user name'),
                                   controller: _usernameController,
                                 ),
+                              ),
+                              const SizedBox(height: 30.0),
+                              Container(
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
-                              ),
-                              SizedBox(height: 30.0),
-                              Container(
                                 child: TextField(
                                   obscureText: true,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'Password', 'Enter your password'),
                                   controller: _passwordController,
                                 ),
-                                decoration:
-                                    ThemeHelper().inputBoxDecorationShaddow(),
                               ),
-                              SizedBox(height: 15.0),
+                              const SizedBox(height: 15.0),
                               Container(
                                 margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
                                 alignment: Alignment.topRight,
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ForgotPasswordScreen()),
                                     );
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "Forgot your password?",
                                     style: TextStyle(
                                       color: Colors.grey,
@@ -122,11 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: ElevatedButton(
                                   style: ThemeHelper().buttonStyle(),
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(40, 10, 40, 10),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        40, 10, 40, 10),
                                     child: Text(
                                       'Sign In'.toUpperCase(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
@@ -142,10 +142,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                margin:
+                                    const EdgeInsets.fromLTRB(10, 20, 10, 20),
                                 //child: Text('Don\'t have an account? Create'),
                                 child: Text.rich(TextSpan(children: [
-                                  TextSpan(text: "Don\'t have an account? "),
+                                  const TextSpan(
+                                      text: "Don\'t have an account? "),
                                   TextSpan(
                                     text: 'Create',
                                     recognizer: TapGestureRecognizer()

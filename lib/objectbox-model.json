@@ -5,33 +5,41 @@
   "entities": [
     {
       "id": "1:7833304853780513268",
-      "lastPropertyId": "2:3473102428203332137",
+      "lastPropertyId": "3:869272274989982148",
       "name": "Category",
       "properties": [
         {
           "id": "1:9219341726474841975",
           "name": "categoryId",
-          "type": 6,
-          "flags": 129
+          "type": 9,
+          "flags": 2080,
+          "indexId": "1:1176090961191446739"
         },
         {
           "id": "2:3473102428203332137",
           "name": "categoryName",
           "type": 9
+        },
+        {
+          "id": "3:869272274989982148",
+          "name": "id",
+          "type": 6,
+          "flags": 129
         }
       ],
       "relations": []
     },
     {
       "id": "2:1778043269348404774",
-      "lastPropertyId": "6:2523662494154779388",
+      "lastPropertyId": "9:3937542071868674961",
       "name": "User",
       "properties": [
         {
           "id": "1:8129565931811394196",
           "name": "userId",
-          "type": 6,
-          "flags": 129
+          "type": 9,
+          "flags": 2080,
+          "indexId": "2:4662931185944076797"
         },
         {
           "id": "2:813669719301187576",
@@ -57,6 +65,17 @@
           "id": "6:2523662494154779388",
           "name": "password",
           "type": 9
+        },
+        {
+          "id": "8:3110527095192987087",
+          "name": "uId",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "9:3937542071868674961",
+          "name": "image",
+          "type": 9
         }
       ],
       "relations": [
@@ -69,14 +88,16 @@
     }
   ],
   "lastEntityId": "2:1778043269348404774",
-  "lastIndexId": "0:0",
+  "lastIndexId": "2:4662931185944076797",
   "lastRelationId": "1:2349829023543117133",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    8849096572590381187
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

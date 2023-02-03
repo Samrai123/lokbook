@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:my_second_app/model/user.dart';
 
 import 'package:path_provider/path_provider.dart';
@@ -14,7 +16,7 @@ class ObjectBoxInstance {
     _user = Box<User>(_store);
     _category = Box<Category>(_store);
 
-    insertCategory();
+    //insertCategory();
   }
 //initialization of objectbox
   static Future<ObjectBoxInstance> init() async {
@@ -24,6 +26,12 @@ class ObjectBoxInstance {
       directory: '${dir.path}/user_main',
     );
     return ObjectBoxInstance(store);
+  }
+
+  // Delete Store and all boxes
+  static Future<void> deleteDatabase() async {
+    var dir = await getApplicationDocumentsDirectory();
+    Directory('${dir.path}/user_main').deleteSync(recursive: true);
   }
 
 ////add users
@@ -61,12 +69,12 @@ class ObjectBoxInstance {
   }
 
   void insertCategory() {
-    List<Category> lstCategory = getAllCategory();
-    if (lstCategory.isEmpty) {
-      addCategory(Category('Art'));
-      addCategory(Category('Fashion'));
-      addCategory(Category('Abstract'));
-      addCategory(Category('Wildlife'));
-    }
+    //   List<Category> lstCategory = getAllCategory();
+    //   if (lstCategory.isEmpty) {
+    //     addCategory(Category('Art'));
+    //     addCategory(Category('Fashion'));
+    //     addCategory(Category('Abstract'));
+    //     addCategory(Category('Wildlife'));
+    //   }
   }
 }

@@ -4,12 +4,15 @@ import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:my_second_app/app/user_permisson.dart';
 import 'package:my_second_app/model/category.dart';
 import 'package:my_second_app/model/user.dart';
 import 'package:my_second_app/repository/category_repo.dart';
 import 'package:my_second_app/repository/user_repo.dart';
+import 'package:my_second_app/screen/login.dart';
 
 import 'Widget/header_widge.dart';
 import 'Widget/theme_helper.dart';
@@ -22,25 +25,41 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  List<Category> _lstCategorySelected = [];
+  @override
+  void initState() {
+    super.initState();
 
+    checkPermission();
+  }
+
+  // void show() {
+  //   showSnackbar(context, 'Token : ${Constant.token}', Colors.yellow);
+  // }
+
+  checkPermission() async {
+    await UserPermission.checkCameraPermission();
+  }
+
+  List<Category> _lstCategorySelected = [];
+  final _formKey = GlobalKey<FormState>();
   final _fnameController = TextEditingController(text: 'Sam');
   final _lnameController = TextEditingController(text: 'Rai');
   final _usernameController = TextEditingController(text: 'samrai');
   final _passwordController = TextEditingController(text: 'samrai123');
   final _emailController = TextEditingController(text: 'samrai@gmail.com');
-  final _formKey = GlobalKey<FormState>();
+
   _saveUser() async {
     User user = User(
-        _fnameController.text,
-        _lnameController.text,
-        _emailController.text,
-        _usernameController.text,
-        _passwordController.text);
+      _fnameController.text,
+      _lnameController.text,
+      _emailController.text,
+      _usernameController.text,
+      _passwordController.text,
+    );
     // Add all the courses
     user.category.addAll(_lstCategorySelected);
 
-    int status = await UserRepositoryImpl().addAllUser(user);
+    int status = await UserRepositoryImpl().addAllUser(_img, user);
     _showMessage(status);
   }
 
@@ -66,10 +85,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  File? _img;
+  Future _browseImage(ImageSource imageSource) async {
+    try {
+      // Source is either Gallary or Camera
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image != null) {
+        setState(() {
+          _img = File(image.path);
+        });
+      } else {
+        return;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   Widget _backButton() {
     return InkWell(
       onTap: () {
-        Navigator.pop(context);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -115,7 +152,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 120,
+                          height: 30,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              backgroundColor: Colors.grey[300],
+                              context: context,
+                              isScrollControlled: true,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20),
+                                ),
+                              ),
+                              builder: (context) => Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        _browseImage(ImageSource.camera);
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(Icons.camera),
+                                      label: const Text('Camera'),
+                                    ),
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        _browseImage(ImageSource.gallery);
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(Icons.image),
+                                      label: const Text('Gallery'),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          child: SizedBox(
+                            height: 140,
+                            width: double.infinity - 500,
+                            child: _img == null
+                                ? Image.asset(
+                                    'asset/icons/user.png',
+                                  )
+                                : Image.file(_img!),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 25,
                         ),
                         Container(
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
@@ -210,7 +298,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         ))
                                     .toList(),
                                 listType: MultiSelectListType.CHIP,
-                                buttonText: const Text('Select course'),
+                                buttonText: const Text('Select category'),
                                 buttonIcon: const Icon(Icons.search),
                                 onConfirm: (values) {
                                   _lstCategorySelected = values;
@@ -224,7 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 validator: ((value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please select course';
+                                    return 'Please select Category';
                                   }
                                   return null;
                                 }),
