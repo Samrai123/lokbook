@@ -36,7 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> _lstScreen = [
     const HomeScreen(),
     const PostScreen(),
-    const ProfilePage(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

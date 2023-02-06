@@ -8,7 +8,7 @@ class Constant {
   static const String UserLoginURL = "user/login";
   static const String UserURL = "user";
   static const String searchUserByCategoryURL = "user/searchUserByCategory";
-
+  static const String userImageURL = "http://10.0.2.2:3000";
 //==========category url===========
   static const String categoryURL = "category";
 

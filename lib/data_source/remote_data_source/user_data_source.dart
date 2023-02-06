@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:mime/mime.dart';
 import 'package:my_second_app/app/constants.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/login_response.dart';
+import 'package:my_second_app/data_source/remote_data_source/response/user_response.dart';
 import 'package:my_second_app/helper/http_service.dart';
 import 'package:my_second_app/model/user.dart';
 import 'package:http_parser/http_parser.dart';
@@ -65,6 +66,23 @@ class UserRemoteDataSource {
       }
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<List<User>> getAllUser() async {
+    try {
+      Response response = await _httpServices.get(Constant.UserURL,
+          options: Options(headers: {
+            "Authorization": Constant.token,
+          }));
+      if (response.statusCode == 200) {
+        UserResponse userResponse = UserResponse.fromJson(response.data);
+        return userResponse.data!;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      throw Exception('Failed to load course');
     }
   }
 }

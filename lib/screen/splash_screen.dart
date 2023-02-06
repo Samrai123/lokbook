@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? value = prefs.getString('1st_key');
     if (value != null) {
-      Navigator.pushReplacementNamed(context, ProfilePage.route);
+      Navigator.pushReplacementNamed(context, ProfileScreen.route);
     } else {
       Navigator.pushReplacementNamed(context, LoginScreen.route);
     }

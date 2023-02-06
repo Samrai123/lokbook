@@ -24,8 +24,13 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<List<User>> getUser() {
-    return UserLocalDataSource().getUser();
+  Future<List<User>> getUser() async {
+    bool status = await NetworkConnectivity.isOnline();
+    if (status) {
+      return UserRemoteDataSource().getAllUser();
+    } else {
+      return UserLocalDataSource().getUser();
+    }
   }
 
   @override

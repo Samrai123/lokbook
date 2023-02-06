@@ -8,5 +8,5 @@ import 'package:my_second_app/screen/splash_screen.dart';
 
 var getAppRoutes = <String, WidgetBuilder>{
   LoginScreen.route: (context) => const LoginScreen(),
-  ProfilePage.route: (context) => const ProfilePage(),
+  ProfileScreen.route: (context) => const ProfileScreen(),
 };
