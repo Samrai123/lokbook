@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:my_second_app/app/constants.dart';
+import 'package:my_second_app/data_source/remote_data_source/response/login_response.dart';
+import 'package:my_second_app/data_source/remote_data_source/response/profile_response.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/user_response.dart';
 import 'package:my_second_app/model/user.dart';
 import 'package:my_second_app/objectbox.g.dart';
@@ -132,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Container(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    "FlutterTutorial.Net",
+                    "LookBook",
                     style: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
@@ -245,17 +247,115 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-      body: FutureBuilder(
-        future: UserRepositoryImpl().getUser(),
+      body: FutureBuilder<ProfileResponse>(
+        future: UserRepositoryImpl().userInfo(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            debugPrint(snapshot.data.toString());
-            final users = snapshot.data as List<User>;
-            return ListView.builder(
-              itemCount: users.length,
-              itemBuilder: (context, index) {
-                return DisplayProfileWidget(users[index]);
-              },
+          if (snapshot.data != null) {
+            ProfileResponse profileResponse = snapshot.data!;
+            print(profileResponse.email);
+            return Container(
+              child: SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 150,
+                      child: Image.network(
+                        Constant.userImageURL + profileResponse.image!,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 120,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: Column(
+                        children: [
+                          // Container(
+                          //   padding: EdgeInsets.all(10),
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(100),
+                          //     border: Border.all(width: 5, color: Colors.white),
+                          //     color: Colors.white,
+                          //     boxShadow: [
+                          //       BoxShadow(
+                          //         color: Colors.black12,
+                          //         blurRadius: 20,
+                          //         offset: const Offset(5, 5),
+                          //       ),
+                          //     ],
+                          //   ),
+                          //   child: Icon(
+                          //     Icons.person,
+                          //     size: 80,
+                          //     color: Colors.grey.shade300,
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: 150,
+                          ),
+                          Text(
+                            "${profileResponse.fname!} ${profileResponse.lname!}",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, bottom: 4.0),
+                                  alignment: Alignment.topLeft,
+                                  child: const Text(
+                                    "User Information",
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                                Card(
+                                  child: Container(
+                                    alignment: Alignment.topLeft,
+                                    padding: EdgeInsets.all(15),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Column(
+                                          children: <Widget>[
+                                            ...ListTile.divideTiles(
+                                              color: Colors.grey,
+                                              tiles: [
+                                                ListTile(
+                                                  leading: Icon(Icons.email),
+                                                  title: Text("Email"),
+                                                  subtitle: Text(
+                                                      "${profileResponse.email}"),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
             );
           } else {
             return const Center(
@@ -268,109 +368,113 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class DisplayProfileWidget extends StatelessWidget {
-  final User user;
-  const DisplayProfileWidget(this.user, {super.key});
+// class DisplayProfileWidget extends StatelessWidget {
+//   final User user;
+//   const DisplayProfileWidget(this.user, {super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              height: 100,
-              child: Image.network(
-                Constant.userImageURL + user.image!,
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(width: 5, color: Colors.white),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 20,
-                          offset: const Offset(5, 5),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.person,
-                      size: 80,
-                      color: Colors.grey.shade300,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    '${user.fname} ${user.lname}',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding:
-                              const EdgeInsets.only(left: 8.0, bottom: 4.0),
-                          alignment: Alignment.topLeft,
-                          child: const Text(
-                            "User Information",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            alignment: Alignment.topLeft,
-                            padding: EdgeInsets.all(15),
-                            child: Column(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    ...ListTile.divideTiles(
-                                      color: Colors.grey,
-                                      tiles: [
-                                        ListTile(
-                                          leading: Icon(Icons.email),
-                                          title: Text("Email"),
-                                          subtitle: Text("${user.email}"),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: SingleChildScrollView(
+//         child: Stack(
+//           children: [
+//             Container(
+//               alignment: Alignment.center,
+//               height: 100,
+//               child: Image.network(
+//                 Constant.userImageURL + user.image!,
+//               ),
+//             ),
+//             const SizedBox(
+//               height: 60,
+//             ),
+//             Container(
+//               alignment: Alignment.center,
+//               margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
+//               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+//               child: Column(
+//                 children: [
+//                   // Container(
+//                   //   padding: EdgeInsets.all(10),
+//                   //   decoration: BoxDecoration(
+//                   //     borderRadius: BorderRadius.circular(100),
+//                   //     border: Border.all(width: 5, color: Colors.white),
+//                   //     color: Colors.white,
+//                   //     boxShadow: [
+//                   //       BoxShadow(
+//                   //         color: Colors.black12,
+//                   //         blurRadius: 20,
+//                   //         offset: const Offset(5, 5),
+//                   //       ),
+//                   //     ],
+//                   //   ),
+//                   //   child: Icon(
+//                   //     Icons.person,
+//                   //     size: 80,
+//                   //     color: Colors.grey.shade300,
+//                   //   ),
+//                   // ),
+//                   SizedBox(
+//                     height: 100,
+//                   ),
+//                   Text(
+//                     '${user.fname} ${user.lname}',
+//                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+//                   ),
+//                   const SizedBox(
+//                     height: 20,
+//                   ),
+//                   Container(
+//                     padding: EdgeInsets.all(10),
+//                     child: Column(
+//                       children: <Widget>[
+//                         Container(
+//                           padding:
+//                               const EdgeInsets.only(left: 8.0, bottom: 4.0),
+//                           alignment: Alignment.topLeft,
+//                           child: const Text(
+//                             "User Information",
+//                             style: TextStyle(
+//                               color: Colors.black87,
+//                               fontWeight: FontWeight.w500,
+//                               fontSize: 16,
+//                             ),
+//                             textAlign: TextAlign.left,
+//                           ),
+//                         ),
+//                         Card(
+//                           child: Container(
+//                             alignment: Alignment.topLeft,
+//                             padding: EdgeInsets.all(15),
+//                             child: Column(
+//                               children: <Widget>[
+//                                 Column(
+//                                   children: <Widget>[
+//                                     ...ListTile.divideTiles(
+//                                       color: Colors.grey,
+//                                       tiles: [
+//                                         ListTile(
+//                                           leading: Icon(Icons.email),
+//                                           title: Text("Email"),
+//                                           subtitle: Text("${user.email}"),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ],
+//                                 )
+//                               ],
+//                             ),
+//                           ),
+//                         )
+//                       ],
+//                     ),
+//                   )
+//                 ],
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

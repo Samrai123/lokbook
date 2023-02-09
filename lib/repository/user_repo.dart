@@ -2,14 +2,16 @@ import 'dart:io';
 
 import 'package:my_second_app/app/network_connectivity.dart';
 import 'package:my_second_app/data_source/local_data_source/user_data_source.dart';
-import 'package:my_second_app/data_source/remote_data_source/user_data_source.dart';
+import 'package:my_second_app/data_source/remote_data_source/response/profile_response.dart';
 
+import '../data_source/remote_data_source/user_data_source.dart';
 import '../model/user.dart';
 
 abstract class UserRepository {
   Future<List<User>> getUser();
   Future<int> addAllUser(File? file, User user);
   Future<bool> loginUser(String username, String password);
+  Future<ProfileResponse> userInfo();
 }
 
 class UserRepositoryImpl extends UserRepository {
@@ -42,5 +44,10 @@ class UserRepositoryImpl extends UserRepository {
       return false;
       // return UserLocalDataSource().loginUser(username, password);
     }
+  }
+
+  @override
+  Future<ProfileResponse> userInfo() async {
+    return UserRemoteDataSource().userInfo();
   }
 }

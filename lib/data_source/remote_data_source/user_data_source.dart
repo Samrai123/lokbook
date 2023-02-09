@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:mime/mime.dart';
 import 'package:my_second_app/app/constants.dart';
+import 'package:my_second_app/data_source/local_data_source/user_data_source.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/login_response.dart';
+import 'package:my_second_app/data_source/remote_data_source/response/profile_response.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/user_response.dart';
 import 'package:my_second_app/helper/http_service.dart';
 import 'package:my_second_app/model/user.dart';
@@ -84,5 +86,25 @@ class UserRemoteDataSource {
     } catch (e) {
       throw Exception('Failed to load course');
     }
+  }
+
+  Future<ProfileResponse> userInfo() async {
+    ProfileResponse? profileResponse;
+    final url = Constant.baseURL + Constant.ProfileURL;
+    try {
+      var dio = HttpServices().getDioInstance();
+      Response response = await dio.get(url,
+          options: Options(headers: {
+            "Authorization": Constant.token,
+          }));
+      if (response.statusCode == 200) {
+        profileResponse = ProfileResponse.fromJson(response.data);
+      } else {
+        profileResponse = null;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+    return profileResponse!;
   }
 }
