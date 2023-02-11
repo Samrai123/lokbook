@@ -16,6 +16,7 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'model/category.dart';
 import 'model/user.dart';
+import 'model/visual.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -101,6 +102,41 @@ final _entities = <ModelEntity>[
             name: 'category',
             targetId: const IdUid(1, 7833304853780513268))
       ],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(3, 214625825119749401),
+      name: 'Visual',
+      lastPropertyId: const IdUid(4, 597193445582522748),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 8283447694164806019),
+            name: 'vId',
+            type: 6,
+            flags: 129),
+        ModelProperty(
+            id: const IdUid(2, 7102480984676927296),
+            name: 'visualId',
+            type: 9,
+            flags: 2080,
+            indexId: const IdUid(3, 6592583412379438087)),
+        ModelProperty(
+            id: const IdUid(3, 4462793614819332180),
+            name: 'description',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 597193445582522748),
+            name: 'image',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[
+        ModelRelation(
+            id: const IdUid(2, 6211989545962352094),
+            name: 'category',
+            targetId: const IdUid(1, 7833304853780513268))
+      ],
       backlinks: <ModelBacklink>[])
 ];
 
@@ -124,9 +160,9 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(2, 1778043269348404774),
-      lastIndexId: const IdUid(2, 4662931185944076797),
-      lastRelationId: const IdUid(1, 2349829023543117133),
+      lastEntityId: const IdUid(3, 214625825119749401),
+      lastIndexId: const IdUid(3, 6592583412379438087),
+      lastRelationId: const IdUid(2, 6211989545962352094),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
@@ -234,6 +270,48 @@ ModelDefinition getObjectBoxModel() {
           InternalToManyAccess.setRelInfo(object.category, store,
               RelInfo<User>.toMany(1, object.uId), store.box<User>());
           return object;
+        }),
+    Visual: EntityDefinition<Visual>(
+        model: _entities[2],
+        toOneRelations: (Visual object) => [],
+        toManyRelations: (Visual object) =>
+            {RelInfo<Visual>.toMany(2, object.vId): object.category},
+        getId: (Visual object) => object.vId,
+        setId: (Visual object, int id) {
+          object.vId = id;
+        },
+        objectToFB: (Visual object, fb.Builder fbb) {
+          final visualIdOffset = object.visualId == null
+              ? null
+              : fbb.writeString(object.visualId!);
+          final descriptionOffset = object.description == null
+              ? null
+              : fbb.writeString(object.description!);
+          final imageOffset =
+              object.image == null ? null : fbb.writeString(object.image!);
+          fbb.startTable(5);
+          fbb.addInt64(0, object.vId);
+          fbb.addOffset(1, visualIdOffset);
+          fbb.addOffset(2, descriptionOffset);
+          fbb.addOffset(3, imageOffset);
+          fbb.finish(fbb.endTable());
+          return object.vId;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = Visual(
+              visualId: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 6),
+              description: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 8),
+              image: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 10),
+              vId: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
+          InternalToManyAccess.setRelInfo(object.category, store,
+              RelInfo<Visual>.toMany(2, object.vId), store.box<Visual>());
+          return object;
         })
   };
 
@@ -283,4 +361,25 @@ class User_ {
   /// see [User.category]
   static final category =
       QueryRelationToMany<User, Category>(_entities[1].relations[0]);
+}
+
+/// [Visual] entity fields to define ObjectBox queries.
+class Visual_ {
+  /// see [Visual.vId]
+  static final vId = QueryIntegerProperty<Visual>(_entities[2].properties[0]);
+
+  /// see [Visual.visualId]
+  static final visualId =
+      QueryStringProperty<Visual>(_entities[2].properties[1]);
+
+  /// see [Visual.description]
+  static final description =
+      QueryStringProperty<Visual>(_entities[2].properties[2]);
+
+  /// see [Visual.image]
+  static final image = QueryStringProperty<Visual>(_entities[2].properties[3]);
+
+  /// see [Visual.category]
+  static final category =
+      QueryRelationToMany<Visual, Category>(_entities[2].relations[0]);
 }

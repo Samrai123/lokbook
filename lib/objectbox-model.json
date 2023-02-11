@@ -85,11 +85,48 @@
           "targetId": "1:7833304853780513268"
         }
       ]
+    },
+    {
+      "id": "3:214625825119749401",
+      "lastPropertyId": "4:597193445582522748",
+      "name": "Visual",
+      "properties": [
+        {
+          "id": "1:8283447694164806019",
+          "name": "vId",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:7102480984676927296",
+          "name": "visualId",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "3:6592583412379438087"
+        },
+        {
+          "id": "3:4462793614819332180",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "4:597193445582522748",
+          "name": "image",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:6211989545962352094",
+          "name": "category",
+          "targetId": "1:7833304853780513268"
+        }
+      ]
     }
   ],
-  "lastEntityId": "2:1778043269348404774",
-  "lastIndexId": "2:4662931185944076797",
-  "lastRelationId": "1:2349829023543117133",
+  "lastEntityId": "3:214625825119749401",
+  "lastIndexId": "3:6592583412379438087",
+  "lastRelationId": "2:6211989545962352094",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
