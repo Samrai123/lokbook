@@ -5,6 +5,8 @@ import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/register.dart';
 import 'package:my_second_app/screen/splash_screen.dart';
 
+import '../screen/visual_screen.dart';
+
 var getAppRoutes = <String, WidgetBuilder>{
   LoginScreen.route: (context) => const LoginScreen(),
   ProfileScreen.route: (context) => const ProfileScreen(),
@@ -12,4 +14,5 @@ var getAppRoutes = <String, WidgetBuilder>{
   SplashScreen.route: (context) => SplashScreen(
         title: 'LookBook',
       ),
+  VisualScreen.route: (context) => const VisualScreen(),
 };
