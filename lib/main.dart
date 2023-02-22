@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:my_second_app/app/route.dart';
 import 'package:my_second_app/helper/objectbox.dart';
 import 'package:my_second_app/state/objectbox_state.dart';
+import 'package:my_second_app/wearos/login.dart';
 
 import 'screen/splash_screen.dart';
 
@@ -40,7 +42,8 @@ class LookBook extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey.shade100,
         primarySwatch: Colors.grey,
       ),
-      home: SplashScreen(title: 'LOOKBOOK'),
+      initialRoute: SplashScreen.route,
+      routes: getAppRoutes,
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:my_second_app/app/user_permisson.dart';
 import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/post_screen.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
+import 'package:my_second_app/screen/search_page.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -36,6 +37,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> _lstScreen = [
     const HomeScreen(),
     const PostScreen(),
+    const SearchScreen(),
     const ProfileScreen(),
   ];
   @override
@@ -51,6 +53,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.add_a_photo),
             label: 'Post',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
+            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(

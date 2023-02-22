@@ -12,6 +12,7 @@ class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
+  static const String route = "splashScreen";
 
   @override
   _SplashScreenState createState() => _SplashScreenState();

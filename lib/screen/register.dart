@@ -56,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       username: _usernameController.text,
       password: _passwordController.text,
     );
-    // Add all the courses
+
     user.category.addAll(_lstCategorySelected);
 
     int status = await UserRepositoryImpl().addAllUser(_img, user);

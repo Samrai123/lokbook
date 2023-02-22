@@ -1,4 +1,5 @@
 import 'package:my_second_app/model/user.dart';
+import 'package:my_second_app/model/visual.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'category.g.dart';
@@ -15,6 +16,7 @@ class Category {
   String categoryName;
   @Backlink()
   final user = ToMany<User>();
+  final visual = ToMany<Visual>();
   Category(this.categoryId, this.categoryName, {this.id = 0});
 
   factory Category.fromJson(Map<String, dynamic> json) =>

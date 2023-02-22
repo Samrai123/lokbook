@@ -1,7 +1,6 @@
-import 'dart:html';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:my_second_app/model/category.dart';
+import 'package:my_second_app/model/user.dart';
 import 'package:objectbox/objectbox.dart';
 part 'visual.g.dart';
 
@@ -17,7 +16,7 @@ class Visual {
   String? visualId;
   String? description;
   String? image;
-
+  
   @JsonKey(name: 'category')
   List<Category>? categorys;
   final category = ToMany<Category>();

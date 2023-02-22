@@ -3,43 +3,43 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:my_second_app/app/constants.dart';
-import 'package:my_second_app/data_source/remote_data_source/response/visual_response.dart';
+import 'package:my_second_app/model/category.dart';
 import 'package:my_second_app/model/visual.dart';
 import 'package:my_second_app/repository/visual_repo.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
+class CategoryVisualScreen extends StatefulWidget {
+  const CategoryVisualScreen({super.key});
+  static const String route = "categoryVisualsScreen";
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CategoryVisualScreen> createState() => _CategoryVisualScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CategoryVisualScreenState extends State<CategoryVisualScreen> {
+  late Category category;
+  @override
+  void didChangeDependencies() {
+    category = ModalRoute.of(context)!.settings.arguments as Category;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        shadowColor: Colors.white,
-        backgroundColor: Colors.white,
-      ),
-      body: FutureBuilder<List<Visual>>(
-        future: VisualRepsitoryImpl().getVisual(),
+      body: FutureBuilder(
+        future: VisualRepsitoryImpl().getVisualByCategory(category.categoryId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final visuals = snapshot.data as List<Visual>;
-            return InkWell(
-              onTap: () {},
-              child: MasonryGridView.builder(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                gridDelegate:
-                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2),
-                itemCount: visuals.length,
-                itemBuilder: (context, index) {
-                  return DisplayVisualWidget(visuals[index]);
-                },
-              ),
+            return MasonryGridView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              gridDelegate:
+                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+              itemCount: visuals.length,
+              itemBuilder: (context, index) {
+                return DisplayVisualWidget(visuals[index]);
+              },
             );
           } else {
             return const Center(

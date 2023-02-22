@@ -84,7 +84,7 @@ class UserRemoteDataSource {
         return [];
       }
     } catch (e) {
-      throw Exception('Failed to load course');
+      throw Exception('Failed to load User');
     }
   }
 
