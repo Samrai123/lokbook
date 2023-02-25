@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:my_second_app/app/constants.dart';
+import 'package:my_second_app/app/data.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/login_response.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/profile_response.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/user_response.dart';
@@ -13,6 +14,7 @@ import 'package:my_second_app/objectbox.g.dart';
 import 'package:my_second_app/repository/user_repo.dart';
 
 import 'package:my_second_app/screen/Widget/header_widge.dart';
+import 'package:my_second_app/screen/about_us.dart';
 import 'package:my_second_app/screen/forgetpass.dart';
 import 'package:my_second_app/screen/login.dart';
 import 'package:my_second_app/screen/notification.dart';
@@ -80,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        Notifications.route,
+                        NotificationScreen.route,
                       );
                     },
                     child: Icon(Icons.notifications)),
@@ -158,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: Theme.of(context).accentColor,
                 ),
                 title: Text(
-                  'Splash Screen',
+                  'About Us',
                   style: TextStyle(
                       fontSize: 17, color: Theme.of(context).accentColor),
                 ),
@@ -166,8 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              SplashScreen(title: "Splash Screen")));
+                          builder: (context) => GoogleMapScreenState()));
                 },
               ),
               ListTile(

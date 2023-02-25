@@ -6,6 +6,7 @@ import 'package:my_second_app/app/constants.dart';
 import 'package:my_second_app/model/category.dart';
 import 'package:my_second_app/model/visual.dart';
 import 'package:my_second_app/repository/visual_repo.dart';
+import 'package:my_second_app/screen/visual_screen.dart';
 
 class CategoryVisualScreen extends StatefulWidget {
   const CategoryVisualScreen({super.key});
@@ -16,9 +17,11 @@ class CategoryVisualScreen extends StatefulWidget {
 
 class _CategoryVisualScreenState extends State<CategoryVisualScreen> {
   late Category category;
+
   @override
   void didChangeDependencies() {
     category = ModalRoute.of(context)!.settings.arguments as Category;
+
     super.didChangeDependencies();
   }
 
@@ -113,19 +116,24 @@ class DisplayVisualWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                Constant.userImageURL + visual.image!,
+        child: InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, VisualScreen.route, arguments: visual);
+          },
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  Constant.userImageURL + visual.image!,
+                ),
               ),
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Text("${visual.description}"),
-            ),
-          ],
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Text("${visual.description}"),
+              ),
+            ],
+          ),
         ));
   }
 }
