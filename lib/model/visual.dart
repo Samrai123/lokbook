@@ -14,13 +14,15 @@ class Visual {
   @Index()
   @JsonKey(name: '_id')
   String? visualId;
+  String? title;
   String? description;
   String? image;
-  
+
   @JsonKey(name: 'category')
   List<Category>? categorys;
   final category = ToMany<Category>();
-  Visual({this.visualId, this.description, this.image, this.vId = 0});
+  Visual(
+      {this.visualId, this.description, this.title, this.image, this.vId = 0});
 
   factory Visual.fromJson(Map<String, dynamic> json) => _$VisualFromJson(json);
   Map<String, dynamic> toJson() => _$VisualToJson(this);

@@ -9,6 +9,7 @@ part of 'visual.dart';
 Visual _$VisualFromJson(Map<String, dynamic> json) => Visual(
       visualId: json['_id'] as String?,
       description: json['description'] as String?,
+      title: json['title'] as String?,
       image: json['image'] as String?,
       vId: json['vId'] as int? ?? 0,
     )..categorys = (json['category'] as List<dynamic>?)
@@ -18,6 +19,7 @@ Visual _$VisualFromJson(Map<String, dynamic> json) => Visual(
 Map<String, dynamic> _$VisualToJson(Visual instance) => <String, dynamic>{
       'vId': instance.vId,
       '_id': instance.visualId,
+      'title': instance.title,
       'description': instance.description,
       'image': instance.image,
       'category': instance.categorys,

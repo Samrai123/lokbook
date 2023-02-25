@@ -15,6 +15,7 @@ import 'package:my_second_app/repository/user_repo.dart';
 import 'package:my_second_app/screen/Widget/header_widge.dart';
 import 'package:my_second_app/screen/forgetpass.dart';
 import 'package:my_second_app/screen/login.dart';
+import 'package:my_second_app/screen/notification.dart';
 import 'package:my_second_app/screen/post_screen.dart';
 import 'package:my_second_app/screen/register.dart';
 import 'package:my_second_app/screen/splash_screen.dart';
@@ -75,7 +76,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Stack(
               children: <Widget>[
-                InkWell(onTap: () {}, child: Icon(Icons.notifications)),
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Notifications.route,
+                      );
+                    },
+                    child: Icon(Icons.notifications)),
                 Positioned(
                   right: 0,
                   child: Container(

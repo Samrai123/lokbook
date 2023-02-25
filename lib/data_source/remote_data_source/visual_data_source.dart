@@ -26,6 +26,7 @@ class VisualRemoteDataSource {
       }
       FormData formData = FormData.fromMap({
         'description': visual.description,
+        'title': visual.title,
         'category':
             visual.category.map((category) => category.categoryId).toList(),
         'image': image,

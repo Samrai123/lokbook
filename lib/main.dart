@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -9,6 +10,21 @@ import 'package:my_second_app/wearos/login.dart';
 import 'screen/splash_screen.dart';
 
 void main() async {
+  AwesomeNotifications().initialize(
+    'resource://drawable/launcher',
+    [
+      NotificationChannel(
+        channelGroupKey: 'basic_channel_group',
+        channelKey: 'basic_channel',
+        channelName: 'Basic Notification',
+        channelDescription: 'Notification channel for basic tests',
+        defaultColor: Colors.red,
+        importance: NotificationImportance.Max,
+        ledColor: Colors.white,
+        channelShowBadge: true,
+      )
+    ],
+  );
   WidgetsFlutterBinding.ensureInitialized();
   ObjectBoxInstance.deleteDatabase();
   //create an object for objectboxinstance

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -8,6 +9,8 @@ import 'package:motion_toast/motion_toast.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:multi_select_flutter/util/multi_select_list_type.dart';
+import 'package:my_second_app/app/constants.dart';
+import 'package:my_second_app/data_source/remote_data_source/response/profile_response.dart';
 import 'package:my_second_app/model/category.dart';
 import 'package:my_second_app/model/user.dart';
 import 'package:my_second_app/model/visual.dart';
@@ -15,6 +18,7 @@ import 'package:my_second_app/repository/category_repo.dart';
 import 'package:my_second_app/repository/user_repo.dart';
 import 'package:my_second_app/repository/visual_repo.dart';
 import 'package:my_second_app/screen/Widget/snackbar.dart';
+import 'package:my_second_app/screen/Widget/tap_fade_icon.dart';
 import 'package:my_second_app/screen/Widget/theme_helper.dart';
 
 class PostScreen extends StatefulWidget {
@@ -29,9 +33,11 @@ class _PostScreenState extends State<PostScreen> {
   List<Category> _lstCategorySelected = [];
   final _formKey = GlobalKey<FormState>();
   final _descriptionController = TextEditingController();
+  final _titleController = TextEditingController();
 
   _saveVisual() async {
-    Visual visual = Visual(description: _descriptionController.text);
+    Visual visual = Visual(
+        description: _descriptionController.text, title: _titleController.text);
 
     visual.category.addAll(_lstCategorySelected);
     int status = await VisualRepsitoryImpl().addAllVisual(_img, visual);
@@ -155,29 +161,28 @@ class _PostScreenState extends State<PostScreen> {
             ),
             child: Stack(
               children: <Widget>[
-                InkWell(onTap: () {}, child: Icon(Icons.notifications)),
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 12,
-                      minHeight: 12,
-                    ),
-                    child: Text(
-                      '5',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                InkWell(
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      _saveVisual();
+                      AwesomeNotifications().createNotification(
+                        content: NotificationContent(
+                          channelKey: 'Basic',
+                          id: 1,
+                          title: 'Visual Posted',
+                          body: 'Successfully Posted',
+                        ),
+                      );
+                    }
+                  },
+                  child: Text(
+                    'Post',
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
-                )
+                ),
               ],
             ),
           )
@@ -191,96 +196,196 @@ class _PostScreenState extends State<PostScreen> {
           child: Form(
             key: _formKey,
             child: Column(children: [
-              _displayImage(),
-              const SizedBox(height: 30),
-              Container(
-                decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                child: TextFormField(
-                  minLines: 3,
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  // obscureText: true,
-                  decoration: ThemeHelper().textInputDecoration(
-                      'Description', 'Enter your Description'),
-                  controller: _descriptionController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter description';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              FutureBuilder(
-                future: CategoryRepositoryImpl().getAllCategory(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return MultiSelectDialogField(
-                      //initialValue: [snapshot.data![0]],
-                      title: const Text('Add Category'),
-                      items: snapshot.data!
-                          .map((category) => MultiSelectItem(
-                                category,
-                                category.categoryName,
-                              ))
-                          .toList(),
-                      listType: MultiSelectListType.CHIP,
-                      buttonText: const Text('Add category'),
-                      buttonIcon: const Icon(Icons.add),
-                      onConfirm: (values) {
-                        _lstCategorySelected = values;
-                      },
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      validator: ((value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please select Category';
-                        }
-                        return null;
-                      }),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              SizedBox(
-                width: 350,
-                child: Container(
-                  decoration: ThemeHelper().buttonBoxDecoration(context),
-                  child: ElevatedButton(
-                    style: ThemeHelper().buttonStyle(),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      child: Text(
-                        'Post'.toUpperCase(),
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _saveVisual();
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FutureBuilder<ProfileResponse>(
+                    future: UserRepositoryImpl().userInfo(),
+                    builder: (context, snapshot) {
+                      if (snapshot.data != null) {
+                        ProfileResponse profileResponse = snapshot.data!;
+                        print(profileResponse.email);
+                        return ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: Image.network(
+                              Constant.userImageURL + profileResponse.image!),
+                          title: Text(
+                              "${profileResponse.fname!} ${profileResponse.lname!}"),
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
                     },
                   ),
-                ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    controller: _titleController,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'What\'s The Title?',
+                      hintStyle: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  _displayImage(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    controller: _descriptionController,
+                    maxLines: 4,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Write the Description About it.',
+                      hintStyle: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  FutureBuilder(
+                    future: CategoryRepositoryImpl().getAllCategory(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return MultiSelectDialogField(
+                          //initialValue: [snapshot.data![0]],
+                          title: const Text('Add Category'),
+                          items: snapshot.data!
+                              .map((category) => MultiSelectItem(
+                                    category,
+                                    category.categoryName,
+                                  ))
+                              .toList(),
+                          listType: MultiSelectListType.CHIP,
+                          buttonText: const Text('Add category'),
+                          buttonIcon: const Icon(Icons.add),
+                          onConfirm: (values) {
+                            _lstCategorySelected = values;
+                          },
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          validator: ((value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select Category';
+                            }
+                            return null;
+                          }),
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                ],
               ),
+              const SizedBox(height: 30),
+              // Container(
+              //   decoration: ThemeHelper().inputBoxDecorationShaddow(),
+              //   child: TextField(
+              //     minLines: 3,
+              //     maxLines: null,
+              //     keyboardType: TextInputType.multiline,
+              //     // obscureText: true,
+              //     decoration: ThemeHelper().textInputDecoration(
+              //         'Description', 'Enter your Description'),
+              //     controller: _descriptionController,
+              //     // validator: (value) {
+              //     //   if (value!.isEmpty) {
+              //     //     return 'Please enter description';
+              //     //   }
+              //     //   return null;
+              //     // },
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // FutureBuilder(
+              //   future: CategoryRepositoryImpl().getAllCategory(),
+              //   builder: (context, snapshot) {
+              //     if (snapshot.hasData) {
+              //       return MultiSelectDialogField(
+              //         //initialValue: [snapshot.data![0]],
+              //         title: const Text('Add Category'),
+              //         items: snapshot.data!
+              //             .map((category) => MultiSelectItem(
+              //                   category,
+              //                   category.categoryName,
+              //                 ))
+              //             .toList(),
+              //         listType: MultiSelectListType.CHIP,
+              //         buttonText: const Text('Add category'),
+              //         buttonIcon: const Icon(Icons.add),
+              //         onConfirm: (values) {
+              //           _lstCategorySelected = values;
+              //         },
+              //         decoration: BoxDecoration(
+              //           border: Border.all(
+              //             color: Colors.grey,
+              //             width: 1,
+              //           ),
+              //           borderRadius: BorderRadius.circular(50),
+              //         ),
+              //         validator: ((value) {
+              //           if (value == null || value.isEmpty) {
+              //             return 'Please select Category';
+              //           }
+              //           return null;
+              //         }),
+              //       );
+              //     } else {
+              //       return const Center(
+              //         child: CircularProgressIndicator(),
+              //       );
+              //     }
+              //   },
+              // ),
+              // const SizedBox(
+              //   height: 40,
+              // ),
+              // SizedBox(
+              //   width: 350,
+              //   child: Container(
+              //     decoration: ThemeHelper().buttonBoxDecoration(context),
+              //     child: ElevatedButton(
+              //       style: ThemeHelper().buttonStyle(),
+              //       child: Padding(
+              //         padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              //         child: Text(
+              //           'Post'.toUpperCase(),
+              //           style: const TextStyle(
+              //               fontSize: 20,
+              //               fontWeight: FontWeight.bold,
+              //               color: Colors.white),
+              //         ),
+              //       ),
+              //       onPressed: () {
+              //         if (_formKey.currentState!.validate()) {
+              //           _saveVisual();
+              //           AwesomeNotifications().createNotification(
+              //             content: NotificationContent(
+              //               channelKey: 'Basic',
+              //               id: 1,
+              //               title: 'Visual Posted',
+              //               body: 'Successfully Posted',
+              //             ),
+              //           );
+              //         }
+              //       },
+              //     ),
+              //   ),
+              // ),
             ]),
           ),
         ),

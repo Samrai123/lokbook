@@ -44,7 +44,12 @@ final _entities = <ModelEntity>[
             type: 6,
             flags: 129)
       ],
-      relations: <ModelRelation>[],
+      relations: <ModelRelation>[
+        ModelRelation(
+            id: const IdUid(3, 4358591887171099164),
+            name: 'visual',
+            targetId: const IdUid(3, 214625825119749401))
+      ],
       backlinks: <ModelBacklink>[
         ModelBacklink(name: 'user', srcEntity: 'User', srcField: '')
       ]),
@@ -106,7 +111,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(3, 214625825119749401),
       name: 'Visual',
-      lastPropertyId: const IdUid(4, 597193445582522748),
+      lastPropertyId: const IdUid(5, 6196087706376009144),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -128,6 +133,11 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(4, 597193445582522748),
             name: 'image',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 6196087706376009144),
+            name: 'title',
             type: 9,
             flags: 0)
       ],
@@ -162,7 +172,7 @@ ModelDefinition getObjectBoxModel() {
       entities: _entities,
       lastEntityId: const IdUid(3, 214625825119749401),
       lastIndexId: const IdUid(3, 6592583412379438087),
-      lastRelationId: const IdUid(2, 6211989545962352094),
+      lastRelationId: const IdUid(3, 4358591887171099164),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
@@ -176,8 +186,10 @@ ModelDefinition getObjectBoxModel() {
     Category: EntityDefinition<Category>(
         model: _entities[0],
         toOneRelations: (Category object) => [],
-        toManyRelations: (Category object) =>
-            {RelInfo<User>.toManyBacklink(1, object.id): object.user},
+        toManyRelations: (Category object) => {
+              RelInfo<Category>.toMany(3, object.id): object.visual,
+              RelInfo<User>.toManyBacklink(1, object.id): object.user
+            },
         getId: (Category object) => object.id,
         setId: (Category object, int id) {
           object.id = id;
@@ -202,6 +214,8 @@ ModelDefinition getObjectBoxModel() {
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 6, ''),
               id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0));
+          InternalToManyAccess.setRelInfo(object.visual, store,
+              RelInfo<Category>.toMany(3, object.id), store.box<Category>());
           InternalToManyAccess.setRelInfo(
               object.user,
               store,
@@ -289,11 +303,14 @@ ModelDefinition getObjectBoxModel() {
               : fbb.writeString(object.description!);
           final imageOffset =
               object.image == null ? null : fbb.writeString(object.image!);
-          fbb.startTable(5);
+          final titleOffset =
+              object.title == null ? null : fbb.writeString(object.title!);
+          fbb.startTable(6);
           fbb.addInt64(0, object.vId);
           fbb.addOffset(1, visualIdOffset);
           fbb.addOffset(2, descriptionOffset);
           fbb.addOffset(3, imageOffset);
+          fbb.addOffset(4, titleOffset);
           fbb.finish(fbb.endTable());
           return object.vId;
         },
@@ -306,6 +323,8 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGetNullable(buffer, rootOffset, 6),
               description: const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 8),
+              title: const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 12),
               image: const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 10),
               vId: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0));
@@ -330,6 +349,10 @@ class Category_ {
 
   /// see [Category.id]
   static final id = QueryIntegerProperty<Category>(_entities[0].properties[2]);
+
+  /// see [Category.visual]
+  static final visual =
+      QueryRelationToMany<Category, Visual>(_entities[0].relations[0]);
 }
 
 /// [User] entity fields to define ObjectBox queries.
@@ -378,6 +401,9 @@ class Visual_ {
 
   /// see [Visual.image]
   static final image = QueryStringProperty<Visual>(_entities[2].properties[3]);
+
+  /// see [Visual.title]
+  static final title = QueryStringProperty<Visual>(_entities[2].properties[4]);
 
   /// see [Visual.category]
   static final category =

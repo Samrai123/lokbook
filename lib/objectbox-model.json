@@ -27,7 +27,13 @@
           "flags": 129
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "3:4358591887171099164",
+          "name": "visual",
+          "targetId": "3:214625825119749401"
+        }
+      ]
     },
     {
       "id": "2:1778043269348404774",
@@ -88,7 +94,7 @@
     },
     {
       "id": "3:214625825119749401",
-      "lastPropertyId": "4:597193445582522748",
+      "lastPropertyId": "5:6196087706376009144",
       "name": "Visual",
       "properties": [
         {
@@ -113,6 +119,11 @@
           "id": "4:597193445582522748",
           "name": "image",
           "type": 9
+        },
+        {
+          "id": "5:6196087706376009144",
+          "name": "title",
+          "type": 9
         }
       ],
       "relations": [
@@ -126,7 +137,7 @@
   ],
   "lastEntityId": "3:214625825119749401",
   "lastIndexId": "3:6592583412379438087",
-  "lastRelationId": "2:6211989545962352094",
+  "lastRelationId": "3:4358591887171099164",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
