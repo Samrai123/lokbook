@@ -85,7 +85,7 @@ class _VisualScreenState extends State<VisualScreen> {
               ),
               SizedBox(height: height * 0.01),
               Text(
-                lstVisual.description.toString(),
+                lstVisual.title.toString(),
                 style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
