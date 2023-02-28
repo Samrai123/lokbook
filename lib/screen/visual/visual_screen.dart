@@ -1,7 +1,10 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 import 'package:my_second_app/app/constants.dart';
+import 'package:my_second_app/app/controller.dart';
 import 'package:my_second_app/model/visual.dart';
 
 class VisualScreen extends StatefulWidget {
@@ -12,6 +15,7 @@ class VisualScreen extends StatefulWidget {
 }
 
 class _VisualScreenState extends State<VisualScreen> {
+  final VisualController visualController = Get.put(VisualController());
   List<String> id = [];
   @override
   Widget build(BuildContext context) {
@@ -207,15 +211,15 @@ class _VisualScreenState extends State<VisualScreen> {
                         ),
                       ),
                       onTap: () {
-                        // cartController.addProduct(lstProduct);
-                        // AwesomeNotifications().createNotification(
-                        //   content: NotificationContent(
-                        //     channelKey: 'Basic',
-                        //     id: 1,
-                        //     title: lstProduct.name.toString(),
-                        //     body: 'Successfully Added to Cart',
-                        //   ),
-                        // );
+                        visualController.addVisual(lstVisual);
+                        AwesomeNotifications().createNotification(
+                          content: NotificationContent(
+                            channelKey: 'Basic',
+                            id: 1,
+                            title: lstVisual.title.toString(),
+                            body: 'Successfully Saved',
+                          ),
+                        );
                       },
                     ),
                   ],

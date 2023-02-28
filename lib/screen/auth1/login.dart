@@ -6,11 +6,10 @@ import 'package:my_second_app/screen/dashboard.dart';
 import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/Widget/snackbar.dart';
-import 'package:my_second_app/screen/register.dart';
+import 'package:my_second_app/screen/auth1/register.dart';
 
-import 'Widget/header_widge.dart';
-import 'Widget/theme_helper.dart';
-import 'forgetpass.dart';
+import '../Widget/header_widge.dart';
+import '../Widget/theme_helper.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -115,26 +114,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               const SizedBox(height: 15.0),
-                              Container(
-                                margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
-                                alignment: Alignment.topRight,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ForgotPasswordScreen()),
-                                    );
-                                  },
-                                  child: const Text(
-                                    "Forgot your password?",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ),
                               Container(
                                 decoration:
                                     ThemeHelper().buttonBoxDecoration(context),

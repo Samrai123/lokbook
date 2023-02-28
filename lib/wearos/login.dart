@@ -7,7 +7,7 @@ import 'package:my_second_app/screen/dashboard.dart';
 import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/Widget/snackbar.dart';
-import 'package:my_second_app/screen/register.dart';
+import 'package:my_second_app/screen/auth1/register.dart';
 import 'package:wear/wear.dart';
 
 class LoginScreenWear extends StatefulWidget {

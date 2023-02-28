@@ -6,7 +6,7 @@ import 'package:my_second_app/app/constants.dart';
 import 'package:my_second_app/model/category.dart';
 import 'package:my_second_app/model/visual.dart';
 import 'package:my_second_app/repository/visual_repo.dart';
-import 'package:my_second_app/screen/visual_screen.dart';
+import 'package:my_second_app/screen/visual/visual_screen.dart';
 
 class CategoryVisualScreen extends StatefulWidget {
   const CategoryVisualScreen({super.key});

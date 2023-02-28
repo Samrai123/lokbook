@@ -7,7 +7,7 @@ import 'package:my_second_app/app/constants.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/visual_response.dart';
 import 'package:my_second_app/model/visual.dart';
 import 'package:my_second_app/repository/visual_repo.dart';
-import 'package:my_second_app/screen/visual_screen.dart';
+import 'package:my_second_app/screen/visual/visual_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

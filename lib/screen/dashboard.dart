@@ -9,7 +9,7 @@ import 'package:my_second_app/app/user_permisson.dart';
 import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/post_screen.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
-import 'package:my_second_app/screen/search_page.dart';
+import 'package:my_second_app/screen/category/search_page.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

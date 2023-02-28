@@ -12,10 +12,10 @@ import 'package:my_second_app/model/category.dart';
 import 'package:my_second_app/model/user.dart';
 import 'package:my_second_app/repository/category_repo.dart';
 import 'package:my_second_app/repository/user_repo.dart';
-import 'package:my_second_app/screen/login.dart';
+import 'package:my_second_app/screen/auth1/login.dart';
 
-import 'Widget/header_widge.dart';
-import 'Widget/theme_helper.dart';
+import '../Widget/header_widge.dart';
+import '../Widget/theme_helper.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

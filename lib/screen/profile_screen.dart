@@ -15,12 +15,13 @@ import 'package:my_second_app/repository/user_repo.dart';
 
 import 'package:my_second_app/screen/Widget/header_widge.dart';
 import 'package:my_second_app/screen/about_us.dart';
-import 'package:my_second_app/screen/forgetpass.dart';
-import 'package:my_second_app/screen/login.dart';
+
+import 'package:my_second_app/screen/auth1/login.dart';
 import 'package:my_second_app/screen/notification.dart';
 import 'package:my_second_app/screen/post_screen.dart';
-import 'package:my_second_app/screen/register.dart';
+import 'package:my_second_app/screen/auth1/register.dart';
 import 'package:my_second_app/screen/splash_screen.dart';
+import 'package:my_second_app/screen/visual/savedVisual.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -228,8 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgotPasswordScreen()),
+                    MaterialPageRoute(builder: (context) => SavedVisual()),
                   );
                 },
               ),

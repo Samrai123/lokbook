@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:my_second_app/screen/dashboard.dart';
-import 'package:my_second_app/screen/login.dart';
+import 'package:my_second_app/screen/auth1/login.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
-import 'package:my_second_app/screen/register.dart';
+import 'package:my_second_app/screen/auth1/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:my_second_app/repository/category_repo.dart';
-import 'package:my_second_app/screen/category_screen.dart';
+import 'package:my_second_app/screen/category/category_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
