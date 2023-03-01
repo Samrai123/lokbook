@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:my_second_app/app/constants.dart';
-import 'package:my_second_app/app/data.dart';
+
 import 'package:my_second_app/data_source/remote_data_source/response/login_response.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/profile_response.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/user_response.dart';
@@ -18,7 +18,7 @@ import 'package:my_second_app/screen/Widget/theme_helper.dart';
 import 'package:my_second_app/screen/about_us.dart';
 
 import 'package:my_second_app/screen/auth1/login.dart';
-import 'package:my_second_app/screen/notification.dart';
+
 import 'package:my_second_app/screen/visual/post_screen.dart';
 import 'package:my_second_app/screen/auth1/register.dart';
 import 'package:my_second_app/screen/splash_screen.dart';
@@ -80,14 +80,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Stack(
               children: <Widget>[
-                InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        NotificationScreen.route,
-                      );
-                    },
-                    child: Icon(Icons.notifications)),
                 Positioned(
                   right: 0,
                   child: Container(
