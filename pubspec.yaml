@@ -65,6 +65,7 @@ dependencies:
   all_sensors2: ^1.0.1
   get: ^4.6.5
   shake: ^2.2.0
+  test_cov_console: ^0.2.2
   
   
 

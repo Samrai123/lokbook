@@ -213,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _fnameController,
-                            key: const Key('txtFname'),
+                            // key: const Key('txtFname'),
                             decoration: ThemeHelper().textInputDecoration(
                                 'First Name', 'Enter your first name'),
                             validator: ((value) {
@@ -231,7 +231,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _lnameController,
-                            key: const Key('txtLname'),
+                            // key: const Key('txtLname'),
                             decoration: ThemeHelper().textInputDecoration(
                                 'Last Name', 'Enter your last name'),
                             validator: ((value) {
@@ -249,7 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _emailController,
                             decoration: ThemeHelper().textInputDecoration(
                                 "E-mail address", "Enter your email"),
-                            key: const Key('txtEmail'),
+                            // key: const Key('txtEmail'),
                             keyboardType: TextInputType.emailAddress,
                             validator: ((value) {
                               if (value == null || value.isEmpty) {
@@ -264,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _usernameController,
-                            key: const Key('txtUsername'),
+                            // key: const Key('txtUsername'),
                             decoration: ThemeHelper().textInputDecoration(
                                 'Username', 'Enter your username'),
                             validator: ((value) {
@@ -280,7 +280,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _passwordController,
-                            key: const Key('txtPassword'),
+                            // key: const Key('txtPassword'),
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
                                 "Password*", "Enter your password"),
@@ -338,7 +338,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration:
                               ThemeHelper().buttonBoxDecoration(context),
                           child: ElevatedButton(
-                            key: const Key('btnRegister'),
+                            // key: const Key('btnRegister'),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _saveUser();
@@ -360,18 +360,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         const SizedBox(height: 30.0),
-                        // InkWell(
-                        //   onTap: () {
-                        //     Navigator.pushReplacement(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => LoginScreen()));
-                        //   },
-                        //   child: const Text(
-                        //     "Already have a Account.",
-                        //     style: TextStyle(color: Colors.grey),
-                        //   ),
-                        // ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
+                          },
+                          child: const Text(
+                            "Already have a Account.",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
                         const SizedBox(height: 25.0),
                       ],
                     ),

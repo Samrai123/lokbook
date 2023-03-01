@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:my_second_app/screen/auth1/login.dart';
 
 import 'package:my_second_app/screen/dashboard.dart';
-import 'package:my_second_app/screen/auth1/login.dart';
-import 'package:my_second_app/screen/homepage.dart';
+
 import 'package:my_second_app/screen/profile_screen.dart';
-import 'package:my_second_app/screen/auth1/register.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? value = prefs.getString('1st_key');
     if (value != null) {
-      Navigator.pushReplacementNamed(context, HomeScreen.route);
+      Navigator.pushReplacementNamed(context, ProfileScreen.route);
     } else {
       Navigator.pushReplacementNamed(context, LoginScreen.route);
     }
@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
       child: AnimatedOpacity(
         opacity: _isVisible ? 1.0 : 0,
-        duration: Duration(milliseconds: 3000),
+        duration: Duration(milliseconds: 1200),
         child: Center(
           child: Container(
             height: 125.0,
@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Container(
                   height: 90,
                   child: Image.asset(
-                    'D:\flutter\final\final-assignment-Samrai123\asset\icons\mylogo.png',
+                    'lib/icons/mylogo.png',
                     color: Color.fromARGB(255, 50, 42, 42),
                   )),
             ),

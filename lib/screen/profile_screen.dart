@@ -80,28 +80,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Stack(
               children: <Widget>[
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 12,
-                      minHeight: 12,
-                    ),
-                    child: Text(
-                      '5',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
+                InkWell(onTap: () {}, child: Icon(Icons.person)),
+                // Positioned(
+                //   right: 0,
+                //   child: Container(
+                //     padding: EdgeInsets.all(1),
+                //     decoration: BoxDecoration(
+                //       color: Colors.white,
+                //       borderRadius: BorderRadius.circular(6),
+                //     ),
+                //     constraints: BoxConstraints(
+                //       minWidth: 12,
+                //       minHeight: 12,
+                //     ),
+                //     child: Text(
+                //       '',
+                //       style: TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 8,
+                //       ),
+                //       textAlign: TextAlign.center,
+                //     ),
+                //   ),
+                // )
               ],
             ),
           )
