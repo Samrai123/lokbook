@@ -48,13 +48,10 @@ class _PostScreenState extends State<PostScreen> {
 
   _showMessage(int status) {
     if (status > 0) {
-      MotionToast.success(
-        description: const Text('Post added Successfully'),
-      ).show(context);
+      showSnackbar(
+          context, 'Post Successfully', Color.fromARGB(255, 117, 244, 54));
     } else {
-      MotionToast.error(
-        description: const Text('Failed to Post'),
-      ).show(context);
+      showSnackbar(context, 'Post failed to Add', Colors.red);
     }
   }
 
@@ -169,7 +166,7 @@ class _PostScreenState extends State<PostScreen> {
                       _saveVisual();
                       AwesomeNotifications().createNotification(
                         content: NotificationContent(
-                          channelKey: 'Basic',
+                          channelKey: 'basic_channel',
                           id: 1,
                           title: 'Visual Posted',
                           body: 'Successfully Posted',
@@ -208,12 +205,22 @@ class _PostScreenState extends State<PostScreen> {
                         ProfileResponse profileResponse = snapshot.data!;
                         print(profileResponse.email);
                         return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: Image.network(
-                              Constant.userImageURL + profileResponse.image!),
-                          title: Text(
-                              "${profileResponse.fname!} ${profileResponse.lname!}"),
-                        );
+                            contentPadding: EdgeInsets.zero,
+                            leading: CircleAvatar(
+                              // radius: 50,
+
+                              foregroundImage: NetworkImage(
+                                  Constant.userImageURL +
+                                      profileResponse.image!),
+                            ),
+                            title: Text(
+                              "${profileResponse.fname!} ${profileResponse.lname!}",
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ));
                       } else {
                         return const Center(
                           child: CircularProgressIndicator(),

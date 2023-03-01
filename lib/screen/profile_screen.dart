@@ -14,11 +14,12 @@ import 'package:my_second_app/objectbox.g.dart';
 import 'package:my_second_app/repository/user_repo.dart';
 
 import 'package:my_second_app/screen/Widget/header_widge.dart';
+import 'package:my_second_app/screen/Widget/theme_helper.dart';
 import 'package:my_second_app/screen/about_us.dart';
 
 import 'package:my_second_app/screen/auth1/login.dart';
 import 'package:my_second_app/screen/notification.dart';
-import 'package:my_second_app/screen/post_screen.dart';
+import 'package:my_second_app/screen/visual/post_screen.dart';
 import 'package:my_second_app/screen/auth1/register.dart';
 import 'package:my_second_app/screen/splash_screen.dart';
 import 'package:my_second_app/screen/visual/savedVisual.dart';
@@ -156,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.screen_lock_landscape_rounded,
+                  Icons.info_outline_rounded,
                   size: _drawerIconSize,
                   color: Theme.of(context).accentColor,
                 ),
@@ -170,23 +171,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => GoogleMapScreenState()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.login_rounded,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Login Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
                 },
               ),
               Divider(
@@ -216,12 +200,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.password_rounded,
+                  Icons.save_alt_rounded,
                   size: _drawerIconSize,
                   color: Theme.of(context).accentColor,
                 ),
                 title: Text(
-                  'Forgot Password Page',
+                  'Saved Post',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
                       color: Theme.of(context).accentColor),
@@ -238,13 +222,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 1,
               ),
               ListTile(
+                leading: Icon(Icons.logout_rounded,
+                    size: _drawerIconSize,
+                    color: Theme.of(context).accentColor),
+                title: Text(
+                  'Logout',
+                  style: TextStyle(
+                      fontSize: _drawerFontSize,
+                      color: Theme.of(context).accentColor),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+              Divider(
+                color: Theme.of(context).primaryColor,
+                height: 1,
+              ),
+              ListTile(
                 leading: Icon(
-                  Icons.logout_rounded,
+                  Icons.exit_to_app_rounded,
                   size: _drawerIconSize,
                   color: Theme.of(context).accentColor,
                 ),
                 title: Text(
-                  'Logout',
+                  'Exit',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
                       color: Theme.of(context).accentColor),
@@ -355,7 +360,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(
                       height: 12,
                     ),
-
+                    Container(
+                      decoration: ThemeHelper().buttonBoxDecoration(context),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SavedVisual()),
+                          );
+                        },
+                        style: ThemeHelper().buttonStyle(),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                          child: Text(
+                            "Saved Post".toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),

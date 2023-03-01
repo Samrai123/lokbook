@@ -12,6 +12,7 @@ import 'package:my_second_app/model/category.dart';
 import 'package:my_second_app/model/user.dart';
 import 'package:my_second_app/repository/category_repo.dart';
 import 'package:my_second_app/repository/user_repo.dart';
+import 'package:my_second_app/screen/Widget/snackbar.dart';
 import 'package:my_second_app/screen/auth1/login.dart';
 
 import '../Widget/header_widge.dart';
@@ -19,7 +20,7 @@ import '../Widget/theme_helper.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
-
+  static const String route = "registerScreen";
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
@@ -63,15 +64,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _showMessage(status);
   }
 
+  _goToAnotherPage() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
   _showMessage(int status) {
     if (status > 0) {
-      MotionToast.success(
-        description: const Text('Registered added Successfully'),
-      ).show(context);
+      _goToAnotherPage();
+      showSnackbar(context, 'User Successfully Added',
+          Color.fromARGB(255, 117, 244, 54));
     } else {
-      MotionToast.error(
-        description: const Text('Error in Registration'),
-      ).show(context);
+      showSnackbar(context, 'Failed to Add User', Colors.red);
     }
   }
 
@@ -209,11 +213,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _fnameController,
+                            key: const Key('txtFname'),
                             decoration: ThemeHelper().textInputDecoration(
                                 'First Name', 'Enter your first name'),
                             validator: ((value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter password';
+                                return 'Please enter first name';
                               }
                               return null;
                             }),
@@ -226,11 +231,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _lnameController,
+                            key: const Key('txtLname'),
                             decoration: ThemeHelper().textInputDecoration(
                                 'Last Name', 'Enter your last name'),
                             validator: ((value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter password';
+                                return 'Please enter Last name';
                               }
                               return null;
                             }),
@@ -243,10 +249,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _emailController,
                             decoration: ThemeHelper().textInputDecoration(
                                 "E-mail address", "Enter your email"),
+                            key: const Key('txtEmail'),
                             keyboardType: TextInputType.emailAddress,
                             validator: ((value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter password';
+                                return 'Please enter email';
                               }
                               return null;
                             }),
@@ -257,11 +264,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _usernameController,
+                            key: const Key('txtUsername'),
                             decoration: ThemeHelper().textInputDecoration(
                                 'Username', 'Enter your username'),
                             validator: ((value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter password';
+                                return 'Please enter username';
                               }
                               return null;
                             }),
@@ -272,6 +280,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             controller: _passwordController,
+                            key: const Key('txtPassword'),
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
                                 "Password*", "Enter your password"),
@@ -284,51 +293,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         const SizedBox(height: 15.0),
-                        FutureBuilder(
-                          future: CategoryRepositoryImpl().getAllCategory(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return MultiSelectDialogField(
-                                //initialValue: [snapshot.data![0]],
-                                title: const Text('Select Category'),
-                                items: snapshot.data!
-                                    .map((category) => MultiSelectItem(
-                                          category,
-                                          category.categoryName,
-                                        ))
-                                    .toList(),
-                                listType: MultiSelectListType.CHIP,
-                                buttonText: const Text('Select category'),
-                                buttonIcon: const Icon(Icons.search),
-                                onConfirm: (values) {
-                                  _lstCategorySelected = values;
-                                },
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                validator: ((value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please select Category';
-                                  }
-                                  return null;
-                                }),
-                              );
-                            } else {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                          },
-                        ),
+                        // FutureBuilder(
+                        //   future: CategoryRepositoryImpl().getAllCategory(),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.hasData) {
+                        //       return MultiSelectDialogField(
+                        //         //initialValue: [snapshot.data![0]],
+                        //         title: const Text('Select Category'),
+                        //         items: snapshot.data!
+                        //             .map((category) => MultiSelectItem(
+                        //                   category,
+                        //                   category.categoryName,
+                        //                 ))
+                        //             .toList(),
+                        //         listType: MultiSelectListType.CHIP,
+                        //         buttonText: const Text('Select category'),
+                        //         buttonIcon: const Icon(Icons.search),
+                        //         onConfirm: (values) {
+                        //           _lstCategorySelected = values;
+                        //         },
+                        //         decoration: BoxDecoration(
+                        //           border: Border.all(
+                        //             color: Colors.grey,
+                        //             width: 1,
+                        //           ),
+                        //           borderRadius: BorderRadius.circular(50),
+                        //         ),
+                        //         validator: ((value) {
+                        //           if (value == null || value.isEmpty) {
+                        //             return 'Please select Category';
+                        //           }
+                        //           return null;
+                        //         }),
+                        //       );
+                        //     } else {
+                        //       return const Center(
+                        //         child: CircularProgressIndicator(),
+                        //       );
+                        //     }
+                        //   },
+                        // ),
                         const SizedBox(height: 20.0),
                         Container(
                           decoration:
                               ThemeHelper().buttonBoxDecoration(context),
                           child: ElevatedButton(
+                            key: const Key('btnRegister'),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _saveUser();
@@ -350,39 +360,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         const SizedBox(height: 30.0),
-                        const Text(
-                          "Or create account using social media",
-                          style: TextStyle(color: Colors.grey),
-                        ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     Navigator.pushReplacement(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => LoginScreen()));
+                        //   },
+                        //   child: const Text(
+                        //     "Already have a Account.",
+                        //     style: TextStyle(color: Colors.grey),
+                        //   ),
+                        // ),
                         const SizedBox(height: 25.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              child: FaIcon(
-                                FontAwesomeIcons.googlePlus,
-                                size: 35,
-                                color: HexColor("#EC2D2F"),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog(
-                                          "Google Plus",
-                                          "You tap on GooglePlus social icon.",
-                                          context);
-                                    },
-                                  );
-                                });
-                              },
-                            ),
-                            const SizedBox(
-                              width: 30.0,
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),

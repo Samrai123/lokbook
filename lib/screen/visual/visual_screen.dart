@@ -15,6 +15,38 @@ class VisualScreen extends StatefulWidget {
 }
 
 class _VisualScreenState extends State<VisualScreen> {
+  void main() async {
+    AwesomeNotifications().initialize(
+      'resource://drawable/launcher',
+      [
+        NotificationChannel(
+          channelGroupKey: 'basic_channel_group',
+          channelKey: 'basic_channel',
+          channelName: 'Basic Notification',
+          channelDescription: 'Notification channel for basic tests',
+          defaultColor: Colors.red,
+          importance: NotificationImportance.Max,
+          ledColor: Colors.white,
+          channelShowBadge: true,
+        )
+      ],
+    );
+  }
+
+  _checkNotificationnEnabled() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    _checkNotificationnEnabled();
+    super.initState();
+  }
+
   final VisualController visualController = Get.put(VisualController());
   List<String> id = [];
   @override
@@ -52,35 +84,6 @@ class _VisualScreenState extends State<VisualScreen> {
                             size: 25,
                             color: Colors.black,
                           ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: width * 0.14,
-                      height: height * 0.07,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // AwesomeNotifications().createNotification(
-                          //   content: NotificationContent(
-                          //     channelKey: 'Basic',
-                          //     id: 1,
-                          //     title: lstProduct.name.toString(),
-                          //     body: 'Successfully Added to Favourite',
-                          //   ),
-                          // );
-
-                          // createBox();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.favorite_outlined,
-                          size: 25,
-                          color: Colors.red,
                         ),
                       ),
                     ),
@@ -168,22 +171,6 @@ class _VisualScreenState extends State<VisualScreen> {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // children: [
-                      //   const Text(
-                      //     'Price',
-                      //     style: TextStyle(
-                      //       fontSize: 20,
-                      //       fontWeight: FontWeight.normal,
-                      //     ),
-                      //   ),
-                      //   Text(
-                      //     'Rs ${lstProduct.price}',
-                      //     style: const TextStyle(
-                      //       fontSize: 24,
-                      //       fontWeight: FontWeight.bold,
-                      //     ),
-                      //   ),
-                      // ],
                     ),
                     InkWell(
                       child: Container(
@@ -204,22 +191,22 @@ class _VisualScreenState extends State<VisualScreen> {
                             ),
                             SizedBox(width: width * 0.05),
                             Text(
-                              'Add to Cart',
+                              'Save Post',
                               style: TextStyle(color: Colors.white),
                             )
                           ],
                         ),
                       ),
                       onTap: () {
-                        visualController.addVisual(lstVisual);
                         AwesomeNotifications().createNotification(
                           content: NotificationContent(
-                            channelKey: 'Basic',
-                            id: 1,
+                            channelKey: 'basic_channel',
+                            id: 2,
                             title: lstVisual.title.toString(),
                             body: 'Successfully Saved',
                           ),
                         );
+                        visualController.addVisual(lstVisual);
                       },
                     ),
                   ],

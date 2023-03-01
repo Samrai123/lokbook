@@ -7,7 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:my_second_app/app/constants.dart';
 import 'package:my_second_app/app/user_permisson.dart';
 import 'package:my_second_app/screen/homepage.dart';
-import 'package:my_second_app/screen/post_screen.dart';
+import 'package:my_second_app/screen/visual/post_screen.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/category/search_page.dart';
 

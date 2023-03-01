@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  _checkNotificationnEnabled() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    _checkNotificationnEnabled();
+    super.initState();
+  }
+
   double _headerHeight = 250;
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController(text: 'samrai');
@@ -29,8 +44,20 @@ class _LoginScreenState extends State<LoginScreen> {
     final islogin = await UserRepositoryImpl()
         .loginUser(_usernameController.text, _passwordController.text);
     if (islogin) {
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 1,
+              channelKey: 'basic_channel',
+              title: "Lookbook",
+              body: "You have logged In"));
       _goToAnotherPage();
     } else {
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 1,
+              channelKey: 'basic_channel',
+              title: "Lookbook",
+              body: "Invalid username or password"));
       _showMessage();
     }
   }
@@ -47,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Login')),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -83,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   decoration: ThemeHelper().textInputDecoration(
                                       'User Name', 'Enter your user name'),
                                   controller: _usernameController,
+                                  key: const Key('txtUsername'),
                                   onSaved: (newValue) {
                                     setState(() {
                                       _usernameController.text = newValue!;
@@ -105,6 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   decoration: ThemeHelper().textInputDecoration(
                                       'Password', 'Enter your password'),
                                   controller: _passwordController,
+                                  key: const Key('txtPassword'),
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Please enter password';
@@ -118,6 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration:
                                     ThemeHelper().buttonBoxDecoration(context),
                                 child: ElevatedButton(
+                                  key: const Key('btnLogin'),
                                   style: ThemeHelper().buttonStyle(),
                                   child: Padding(
                                     padding: const EdgeInsets.fromLTRB(
