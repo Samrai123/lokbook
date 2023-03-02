@@ -7,6 +7,7 @@ import 'package:my_second_app/app/constants.dart';
 import 'package:my_second_app/data_source/remote_data_source/response/visual_response.dart';
 import 'package:my_second_app/model/visual.dart';
 import 'package:my_second_app/repository/visual_repo.dart';
+import 'package:my_second_app/screen/dashboard.dart';
 import 'package:my_second_app/screen/visual/visual_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,41 +52,46 @@ class _HomeScreenState extends State<HomeScreen> {
                 Theme.of(context).accentColor,
               ])),
         ),
-        // actions: [
-        //   Container(
-        //     margin: EdgeInsets.only(
-        //       top: 16,
-        //       right: 16,
-        //     ),
-        //     child: Stack(
-        //       children: <Widget>[
-        //         InkWell(onTap: () {}, child: Icon(Icons.notifications)),
-        //         Positioned(
-        //           right: 0,
-        //           child: Container(
-        //             padding: EdgeInsets.all(1),
-        //             decoration: BoxDecoration(
-        //               color: Colors.red,
-        //               borderRadius: BorderRadius.circular(6),
-        //             ),
-        //             constraints: BoxConstraints(
-        //               minWidth: 12,
-        //               minHeight: 12,
-        //             ),
-        //             child: Text(
-        //               '5',
-        //               style: TextStyle(
-        //                 color: Colors.white,
-        //                 fontSize: 8,
-        //               ),
-        //               textAlign: TextAlign.center,
-        //             ),
-        //           ),
-        //         )
-        //       ],
-        //     ),
-        //   )
-        // ],
+        actions: [
+          Container(
+            margin: EdgeInsets.only(
+              top: 16,
+              right: 16,
+            ),
+            child: Stack(
+              children: <Widget>[
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, DashboardScreen.route);
+                    },
+                    child: Image.asset('asset/icons/mylogo.png',
+                        height: 30, color: Color.fromARGB(255, 196, 191, 191))),
+                // Positioned(
+                //   right: 0,
+                //   child: Container(
+                //     padding: EdgeInsets.all(1),
+                //     decoration: BoxDecoration(
+                //       color: Colors.red,
+                //       borderRadius: BorderRadius.circular(6),
+                //     ),
+                //     constraints: BoxConstraints(
+                //       minWidth: 12,
+                //       minHeight: 12,
+                //     ),
+                //     child: Text(
+                //       '5',
+                //       style: TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 8,
+                //       ),
+                //       textAlign: TextAlign.center,
+                //     ),
+                //   ),
+                // )
+              ],
+            ),
+          )
+        ],
       ),
       body: FutureBuilder<List<Visual>>(
         future: VisualRepsitoryImpl().getVisual(),

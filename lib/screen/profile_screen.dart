@@ -18,6 +18,7 @@ import 'package:my_second_app/screen/Widget/theme_helper.dart';
 import 'package:my_second_app/screen/about_us.dart';
 
 import 'package:my_second_app/screen/auth1/login.dart';
+import 'package:my_second_app/screen/dashboard.dart';
 
 import 'package:my_second_app/screen/visual/post_screen.dart';
 import 'package:my_second_app/screen/auth1/register.dart';
@@ -80,13 +81,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Stack(
               children: <Widget>[
-                InkWell(onTap: () {}, child: Icon(Icons.person)),
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, DashboardScreen.route);
+                    },
+                    child: Image.asset('asset/icons/mylogo.png',
+                        height: 30, color: Color.fromARGB(255, 196, 191, 191))),
                 // Positioned(
                 //   right: 0,
                 //   child: Container(
                 //     padding: EdgeInsets.all(1),
                 //     decoration: BoxDecoration(
-                //       color: Colors.white,
+                //       color: Colors.red,
                 //       borderRadius: BorderRadius.circular(6),
                 //     ),
                 //     constraints: BoxConstraints(
@@ -94,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //       minHeight: 12,
                 //     ),
                 //     child: Text(
-                //       '',
+                //       '5',
                 //       style: TextStyle(
                 //         color: Colors.white,
                 //         fontSize: 8,

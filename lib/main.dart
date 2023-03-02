@@ -59,9 +59,9 @@ class LookBook extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey.shade100,
         primarySwatch: Colors.grey,
       ),
-      initialRoute: SplashScreen.route,
+      // initialRoute: SplashScreen.route,
       //for wearOs
-      // initialRoute: LoginScreenWear.route,
+      initialRoute: LoginScreenWear.route,
 
       routes: getAppRoutes,
     );

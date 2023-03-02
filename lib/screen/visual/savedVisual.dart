@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:my_second_app/app/constants.dart';
 import 'package:my_second_app/app/controller.dart';
 import 'package:my_second_app/model/visual.dart';
+import 'package:my_second_app/screen/dashboard.dart';
 
 class SavedVisual extends StatelessWidget {
   final VisualController controller = Get.find();
@@ -32,6 +33,46 @@ class SavedVisual extends StatelessWidget {
                 Theme.of(context).accentColor,
               ])),
         ),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(
+              top: 16,
+              right: 16,
+            ),
+            child: Stack(
+              children: <Widget>[
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, DashboardScreen.route);
+                    },
+                    child: Image.asset('asset/icons/mylogo.png',
+                        height: 30, color: Color.fromARGB(255, 196, 191, 191))),
+                // Positioned(
+                //   right: 0,
+                //   child: Container(
+                //     padding: EdgeInsets.all(1),
+                //     decoration: BoxDecoration(
+                //       color: Colors.red,
+                //       borderRadius: BorderRadius.circular(6),
+                //     ),
+                //     constraints: BoxConstraints(
+                //       minWidth: 12,
+                //       minHeight: 12,
+                //     ),
+                //     child: Text(
+                //       '5',
+                //       style: TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 8,
+                //       ),
+                //       textAlign: TextAlign.center,
+                //     ),
+                //   ),
+                // )
+              ],
+            ),
+          )
+        ],
       ),
       body: Obx(
         () => SingleChildScrollView(
