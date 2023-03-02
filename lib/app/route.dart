@@ -6,6 +6,7 @@ import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/auth1/register.dart';
 import 'package:my_second_app/screen/splash_screen.dart';
+import 'package:my_second_app/wearos/login.dart';
 
 import '../screen/visual/visual_screen.dart';
 
@@ -18,5 +19,6 @@ var getAppRoutes = <String, WidgetBuilder>{
       ),
   VisualScreen.route: (context) => const VisualScreen(),
   HomeScreen.route: (context) => const HomeScreen(),
-  RegisterScreen.route: (context) => const RegisterScreen()
+  RegisterScreen.route: (context) => const RegisterScreen(),
+  LoginScreenWear.route: (context) => const LoginScreenWear()
 };

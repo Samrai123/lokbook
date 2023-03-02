@@ -170,23 +170,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 color: Theme.of(context).primaryColor,
                 height: 1,
               ),
-              ListTile(
-                leading: Icon(Icons.person_add_alt_1,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Registration Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegisterScreen()),
-                  );
-                },
-              ),
+              // ListTile(
+              //   leading: Icon(Icons.person_add_alt_1,
+              //       size: _drawerIconSize,
+              //       color: Theme.of(context).accentColor),
+              //   title: Text(
+              //     'Registration Page',
+              //     style: TextStyle(
+              //         fontSize: _drawerFontSize,
+              //         color: Theme.of(context).accentColor),
+              //   ),
+              //   onTap: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => RegisterScreen()),
+              //     );
+              //   },
+              // ),
               Divider(
                 color: Theme.of(context).primaryColor,
                 height: 1,

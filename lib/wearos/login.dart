@@ -8,6 +8,7 @@ import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/Widget/snackbar.dart';
 import 'package:my_second_app/screen/auth1/register.dart';
+import 'package:my_second_app/wearos/profile.dart';
 import 'package:wear/wear.dart';
 
 class LoginScreenWear extends StatefulWidget {
@@ -36,7 +37,7 @@ class _LoginScreenWearState extends State<LoginScreenWear> {
 
   _goToAnotherPage() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+        context, MaterialPageRoute(builder: (context) => ProfileWear()));
   }
 
   _showMessage() {
@@ -52,98 +53,55 @@ class _LoginScreenWearState extends State<LoginScreenWear> {
             return Scaffold(
               appBar: AppBar(
                 toolbarHeight: MediaQuery.of(context).size.height * .2,
-                title: const Text('Login'),
+                title: const Text('LookBook'),
               ),
               body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // Container(
-                    //   height: 150,
-                    //   child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
-                    // ),
-                    SafeArea(
-                      child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                          margin: const EdgeInsets.fromLTRB(
-                              20, 10, 20, 10), // This will be the login form
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 5.0),
-                              Form(
-                                  key: _formKey,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        decoration: ThemeHelper()
-                                            .inputBoxDecorationShaddow(),
-                                        child: TextFormField(
-                                          decoration: ThemeHelper()
-                                              .textInputDecoration('User Name',
-                                                  'Enter your user name'),
-                                          controller: _usernameController,
-                                          onSaved: (newValue) {
-                                            setState(() {
-                                              _usernameController.text =
-                                                  newValue!;
-                                            });
-                                          },
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please enter username';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      Container(
-                                        decoration: ThemeHelper()
-                                            .inputBoxDecorationShaddow(),
-                                        child: TextFormField(
-                                          obscureText: true,
-                                          decoration: ThemeHelper()
-                                              .textInputDecoration('Password',
-                                                  'Enter your password'),
-                                          controller: _passwordController,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please enter password';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Container(
-                                        decoration: ThemeHelper()
-                                            .buttonBoxDecoration(context),
-                                        child: ElevatedButton(
-                                          style: ThemeHelper().buttonStyle(),
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                5, 10, 5, 10),
-                                            child: Text(
-                                              'Sign In'.toUpperCase(),
-                                              style: const TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              _login();
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _usernameController,
+                          decoration: const InputDecoration(
+                            labelText: 'Username',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter username';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 4),
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            labelText: 'Password',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter password';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _login();
+                              }
+                            },
+                            child: const Text('Login'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             );

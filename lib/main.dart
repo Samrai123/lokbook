@@ -53,12 +53,16 @@ class LookBook extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'LookBook',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: _primaryColor,
         scaffoldBackgroundColor: Colors.grey.shade100,
         primarySwatch: Colors.grey,
       ),
       initialRoute: SplashScreen.route,
+      //for wearOs
+      // initialRoute: LoginScreenWear.route,
+
       routes: getAppRoutes,
     );
   }

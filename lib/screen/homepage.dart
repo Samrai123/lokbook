@@ -136,7 +136,8 @@ class DisplayVisualWidget extends StatelessWidget {
               ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Text("${visual.description}"),
+                child: Text("${visual.title}",
+                    style: TextStyle(color: Colors.black, fontSize: 32)),
               ),
             ],
           ),
