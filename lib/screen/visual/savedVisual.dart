@@ -47,28 +47,6 @@ class SavedVisual extends StatelessWidget {
                     },
                     child: Image.asset('asset/icons/mylogo.png',
                         height: 30, color: Color.fromARGB(255, 196, 191, 191))),
-                // Positioned(
-                //   right: 0,
-                //   child: Container(
-                //     padding: EdgeInsets.all(1),
-                //     decoration: BoxDecoration(
-                //       color: Colors.red,
-                //       borderRadius: BorderRadius.circular(6),
-                //     ),
-                //     constraints: BoxConstraints(
-                //       minWidth: 12,
-                //       minHeight: 12,
-                //     ),
-                //     child: Text(
-                //       '5',
-                //       style: TextStyle(
-                //         color: Colors.white,
-                //         fontSize: 8,
-                //       ),
-                //       textAlign: TextAlign.center,
-                //     ),
-                //   ),
-                // )
               ],
             ),
           )
@@ -132,27 +110,6 @@ class SavedVisualScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          // SizedBox(width: width * 0.2),
-          // IconButton(
-          //     onPressed: () {
-          //       controller.removeVisual(visual);
-          //     },
-          //     icon: Icon(
-          //       Icons.remove_circle,
-          //       size: 30,
-          //       color: Colors.red,
-          //     )),
-
-          // IconButton(
-          //   onPressed: () {
-          //     controller.addVisual(visual);
-          //   },
-          //   icon: Icon(
-          //     Icons.add_circle,
-          //     size: 30,
-          //     color: Colors.green,
-          //   ),
-          // ),
         ],
       ),
     );

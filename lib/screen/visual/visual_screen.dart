@@ -73,41 +73,6 @@ class _VisualScreenState extends State<VisualScreen> {
                 Theme.of(context).accentColor,
               ])),
         ),
-        // actions: [
-        //   Container(
-        //     margin: EdgeInsets.only(
-        //       top: 16,
-        //       right: 16,
-        //     ),
-        //     child: Stack(
-        //       children: <Widget>[
-        //         InkWell(onTap: () {}, child: Icon(Icons.notifications)),
-        //         Positioned(
-        //           right: 0,
-        //           child: Container(
-        //             padding: EdgeInsets.all(1),
-        //             decoration: BoxDecoration(
-        //               color: Colors.red,
-        //               borderRadius: BorderRadius.circular(6),
-        //             ),
-        //             constraints: BoxConstraints(
-        //               minWidth: 12,
-        //               minHeight: 12,
-        //             ),
-        //             child: Text(
-        //               '5',
-        //               style: TextStyle(
-        //                 color: Colors.white,
-        //                 fontSize: 8,
-        //               ),
-        //               textAlign: TextAlign.center,
-        //             ),
-        //           ),
-        //         )
-        //       ],
-        //     ),
-        //   )
-        // ],
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -119,28 +84,7 @@ class _VisualScreenState extends State<VisualScreen> {
                 padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // SizedBox(
-                    //   width: width * 0.14,
-                    //   height: height * 0.07,
-                    //   child: ElevatedButton(
-                    //     onPressed: () => Navigator.pop(context),
-                    //     style: ElevatedButton.styleFrom(
-                    //       primary: Colors.white,
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(20),
-                    //       ),
-                    //     ),
-                    //     child: const Align(
-                    //       child: Icon(
-                    //         Icons.arrow_back_ios,
-                    //         size: 25,
-                    //         color: Colors.black,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
+                  children: [],
                 ),
               ),
               SizedBox(height: height * 0.01),

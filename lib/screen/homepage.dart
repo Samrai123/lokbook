@@ -66,28 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Image.asset('asset/icons/mylogo.png',
                         height: 30, color: Color.fromARGB(255, 196, 191, 191))),
-                // Positioned(
-                //   right: 0,
-                //   child: Container(
-                //     padding: EdgeInsets.all(1),
-                //     decoration: BoxDecoration(
-                //       color: Colors.red,
-                //       borderRadius: BorderRadius.circular(6),
-                //     ),
-                //     constraints: BoxConstraints(
-                //       minWidth: 12,
-                //       minHeight: 12,
-                //     ),
-                //     child: Text(
-                //       '5',
-                //       style: TextStyle(
-                //         color: Colors.white,
-                //         fontSize: 8,
-                //       ),
-                //       textAlign: TextAlign.center,
-                //     ),
-                //   ),
-                // )
               ],
             ),
           )
