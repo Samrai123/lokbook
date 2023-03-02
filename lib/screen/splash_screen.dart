@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Container(
                   height: 90,
                   child: Image.asset(
-                    '/icons/mylogo.png',
+                    'asset/icons/mylogo.png',
                     color: Color.fromARGB(255, 50, 42, 42),
                   )),
             ),

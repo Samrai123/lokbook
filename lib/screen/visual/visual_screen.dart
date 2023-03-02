@@ -56,6 +56,59 @@ class _VisualScreenState extends State<VisualScreen> {
     var width = MediaQuery.of(context).size.width;
     final lstVisual = ModalRoute.of(context)!.settings.arguments as Visual;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        elevation: 0.5,
+        iconTheme: IconThemeData(color: Colors.white),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                Theme.of(context).primaryColor,
+                Theme.of(context).accentColor,
+              ])),
+        ),
+        // actions: [
+        //   Container(
+        //     margin: EdgeInsets.only(
+        //       top: 16,
+        //       right: 16,
+        //     ),
+        //     child: Stack(
+        //       children: <Widget>[
+        //         InkWell(onTap: () {}, child: Icon(Icons.notifications)),
+        //         Positioned(
+        //           right: 0,
+        //           child: Container(
+        //             padding: EdgeInsets.all(1),
+        //             decoration: BoxDecoration(
+        //               color: Colors.red,
+        //               borderRadius: BorderRadius.circular(6),
+        //             ),
+        //             constraints: BoxConstraints(
+        //               minWidth: 12,
+        //               minHeight: 12,
+        //             ),
+        //             child: Text(
+        //               '5',
+        //               style: TextStyle(
+        //                 color: Colors.white,
+        //                 fontSize: 8,
+        //               ),
+        //               textAlign: TextAlign.center,
+        //             ),
+        //           ),
+        //         )
+        //       ],
+        //     ),
+        //   )
+        // ],
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -67,26 +120,26 @@ class _VisualScreenState extends State<VisualScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: width * 0.14,
-                      height: height * 0.07,
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.pop(context),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        child: const Align(
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            size: 25,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   width: width * 0.14,
+                    //   height: height * 0.07,
+                    //   child: ElevatedButton(
+                    //     onPressed: () => Navigator.pop(context),
+                    //     style: ElevatedButton.styleFrom(
+                    //       primary: Colors.white,
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //       ),
+                    //     ),
+                    //     child: const Align(
+                    //       child: Icon(
+                    //         Icons.arrow_back_ios,
+                    //         size: 25,
+                    //         color: Colors.black,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

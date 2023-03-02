@@ -45,41 +45,41 @@ class _CategoryVisualScreenState extends State<CategoryVisualScreen> {
                 Theme.of(context).accentColor,
               ])),
         ),
-        actions: [
-          Container(
-            margin: EdgeInsets.only(
-              top: 16,
-              right: 16,
-            ),
-            child: Stack(
-              children: <Widget>[
-                InkWell(onTap: () {}, child: Icon(Icons.notifications)),
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 12,
-                      minHeight: 12,
-                    ),
-                    child: Text(
-                      '5',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+        // actions: [
+        //   Container(
+        //     margin: EdgeInsets.only(
+        //       top: 16,
+        //       right: 16,
+        //     ),
+        //     child: Stack(
+        //       children: <Widget>[
+        //         InkWell(onTap: () {}, child: Icon(Icons.notifications)),
+        //         Positioned(
+        //           right: 0,
+        //           child: Container(
+        //             padding: EdgeInsets.all(1),
+        //             decoration: BoxDecoration(
+        //               color: Colors.red,
+        //               borderRadius: BorderRadius.circular(6),
+        //             ),
+        //             constraints: BoxConstraints(
+        //               minWidth: 12,
+        //               minHeight: 12,
+        //             ),
+        //             child: Text(
+        //               '5',
+        //               style: TextStyle(
+        //                 color: Colors.white,
+        //                 fontSize: 8,
+        //               ),
+        //               textAlign: TextAlign.center,
+        //             ),
+        //           ),
+        //         )
+        //       ],
+        //     ),
+        //   )
+        // ],
       ),
       body: FutureBuilder(
         future: VisualRepsitoryImpl().getVisualByCategory(category.categoryId),

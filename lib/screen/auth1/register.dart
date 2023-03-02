@@ -293,46 +293,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         const SizedBox(height: 15.0),
-                        // FutureBuilder(
-                        //   future: CategoryRepositoryImpl().getAllCategory(),
-                        //   builder: (context, snapshot) {
-                        //     if (snapshot.hasData) {
-                        //       return MultiSelectDialogField(
-                        //         //initialValue: [snapshot.data![0]],
-                        //         title: const Text('Select Category'),
-                        //         items: snapshot.data!
-                        //             .map((category) => MultiSelectItem(
-                        //                   category,
-                        //                   category.categoryName,
-                        //                 ))
-                        //             .toList(),
-                        //         listType: MultiSelectListType.CHIP,
-                        //         buttonText: const Text('Select category'),
-                        //         buttonIcon: const Icon(Icons.search),
-                        //         onConfirm: (values) {
-                        //           _lstCategorySelected = values;
-                        //         },
-                        //         decoration: BoxDecoration(
-                        //           border: Border.all(
-                        //             color: Colors.grey,
-                        //             width: 1,
-                        //           ),
-                        //           borderRadius: BorderRadius.circular(50),
-                        //         ),
-                        //         validator: ((value) {
-                        //           if (value == null || value.isEmpty) {
-                        //             return 'Please select Category';
-                        //           }
-                        //           return null;
-                        //         }),
-                        //       );
-                        //     } else {
-                        //       return const Center(
-                        //         child: CircularProgressIndicator(),
-                        //       );
-                        //     }
-                        //   },
-                        // ),
+                        FutureBuilder(
+                          future: CategoryRepositoryImpl().getAllCategory(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return MultiSelectDialogField(
+                                //initialValue: [snapshot.data![0]],
+                                title: const Text('Select Category'),
+                                items: snapshot.data!
+                                    .map((category) => MultiSelectItem(
+                                          category,
+                                          category.categoryName,
+                                        ))
+                                    .toList(),
+                                listType: MultiSelectListType.CHIP,
+                                buttonText: const Text('Select category'),
+                                buttonIcon: const Icon(Icons.search),
+                                onConfirm: (values) {
+                                  _lstCategorySelected = values;
+                                },
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                validator: ((value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select Category you like';
+                                  }
+                                  return null;
+                                }),
+                              );
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
+                        ),
                         const SizedBox(height: 20.0),
                         Container(
                           decoration:
