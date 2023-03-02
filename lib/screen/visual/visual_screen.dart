@@ -58,7 +58,7 @@ class _VisualScreenState extends State<VisualScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "",
+          "Visual",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         elevation: 0.5,

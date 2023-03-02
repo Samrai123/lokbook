@@ -44,20 +44,20 @@ class _LoginScreenState extends State<LoginScreen> {
     final islogin = await UserRepositoryImpl()
         .loginUser(_usernameController.text, _passwordController.text);
     if (islogin) {
-      AwesomeNotifications().createNotification(
-          content: NotificationContent(
-              id: 1,
-              channelKey: 'basic_channel',
-              title: "Lookbook",
-              body: "You have logged In"));
+      // AwesomeNotifications().createNotification(
+      //     content: NotificationContent(
+      //         id: 1,
+      //         channelKey: 'basic_channel',
+      //         title: "Lookbook",
+      //         body: "You have logged In"));
       _goToAnotherPage();
     } else {
-      AwesomeNotifications().createNotification(
-          content: NotificationContent(
-              id: 1,
-              channelKey: 'basic_channel',
-              title: "Lookbook",
-              body: "Invalid username or password"));
+      // AwesomeNotifications().createNotification(
+      //     content: NotificationContent(
+      //         id: 1,
+      //         channelKey: 'basic_channel',
+      //         title: "Lookbook",
+      //         body: "Invalid username or password"));
       _showMessage();
     }
   }

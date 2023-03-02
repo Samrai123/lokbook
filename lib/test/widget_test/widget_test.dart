@@ -2,11 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:my_second_app/screen/about_us.dart';
 import 'package:my_second_app/screen/auth1/login.dart';
+import 'package:my_second_app/screen/auth1/register.dart';
 import 'package:my_second_app/screen/category/search_page.dart';
 import 'package:my_second_app/screen/homepage.dart';
 import 'package:my_second_app/screen/profile_screen.dart';
 import 'package:my_second_app/screen/visual/post_screen.dart';
+import 'package:my_second_app/screen/visual/savedVisual.dart';
+import 'package:my_second_app/screen/visual/visual_screen.dart';
 
 void main() {
   testWidgets('For you page', (WidgetTester tester) async {
@@ -27,11 +31,18 @@ void main() {
     expect(title, findsOneWidget);
   });
 
-  testWidgets("Profiel page", (WidgetTester tester) async {
+  testWidgets("Login page ", (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: ProfileScreen(),
+      home: LoginScreen(),
     ));
-    Finder title = find.text("Profile Page");
+    Finder title = find.text("Hello");
+    expect(title, findsOneWidget);
+  });
+  testWidgets("Register page ", (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: RegisterScreen(),
+    ));
+    Finder title = find.text("Username");
     expect(title, findsOneWidget);
   });
 }

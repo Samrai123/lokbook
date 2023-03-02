@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:my_second_app/app/constants.dart';
 import 'package:my_second_app/app/user_permisson.dart';
+import 'package:my_second_app/screen/Widget/snackbar.dart';
 import 'package:my_second_app/screen/homepage.dart';
 
 import 'package:my_second_app/screen/visual/post_screen.dart';
@@ -22,39 +23,38 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  // double _proximityValue = 0;
-  // final List<StreamSubscription<dynamic>> _streamSubscriptions =
-  //     <StreamSubscription<dynamic>>[];
+  double _proximityValue = 0;
+  final List<StreamSubscription<dynamic>> _streamSubscriptions =
+      <StreamSubscription<dynamic>>[];
 
   @override
   void initState() {
     super.initState();
 
-    // _streamSubscriptions.add(proximityEvents!.listen((ProximityEvent event) {
-    //   setState(() {
-    //     _proximityValue = event.proximity;
+    _streamSubscriptions.add(proximityEvents!.listen((ProximityEvent event) {
+      setState(() {
+        _proximityValue = event.proximity;
 
-    //     if (_proximityValue <= 2) {
-    //       Navigator.pushNamed(
-    //         context,
-    //         ProfileScreen.route,
-    //       );
-    //     }
+        if (_proximityValue <= 2) {
+          Navigator.pushNamed(
+            context,
+            ProfileScreen.route,
+          );
+        }
+      });
+    }));
+
+    @override
+    void dispose() {
+      for (StreamSubscription<dynamic> subscription in _streamSubscriptions) {
+        subscription.cancel();
+      }
+    }
   }
-  //   );
-  // }));
 
-  //   @override
-  //   void dispose() {
-  //     for (StreamSubscription<dynamic> subscription in _streamSubscriptions) {
-  //       subscription.cancel();
-  //     }
-  //   }
-  // }
-
-  // void show() {
-  //   showSnackbar(context, 'Token : ${Constant.token}', Colors.yellow);
-  // }
+  void show() {
+    showSnackbar(context, 'Token : ${Constant.token}', Colors.yellow);
+  }
 
   checkPermission() async {
     await UserPermission.checkCameraPermission();
